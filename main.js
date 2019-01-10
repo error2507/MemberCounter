@@ -1,10 +1,22 @@
 const Discord = require('discord.js');
+const fs = require('fs');
 const DBL = require("dblapi.js");
 const client = new Discord.Client();
 const config = require('./config.json');
 const dbl = new DBL(config.dblToken);
 const embeds = require('./embeds.js');
 const cooldown = new Set();
+
+
+// Getting commands from ./commands/
+client.commands = new Map();
+fs.readdirSync('./commands', (err, files) => {
+    files.forEach(file => {
+        if (file.endsWith('.js')) {
+            client.commands.set(file.split('.')[0], require(`./commands/${file}`));
+        }
+    });
+})
 
 
 client.on('ready', function(){
@@ -16,7 +28,14 @@ client.on('ready', function(){
     client.user.setActivity('%help', { type: 'PLAYING' });
 })
 client.on('message', msg => {
-    var cont = msg.content;
+    if (msg.content.startsWith(config.prefix) && !msg.author.bot) {
+        if (client.commands.has(msg.content.split(' ')[0].substr(config.prefix.length))) {
+            
+        }
+    }
+    
+    
+    /*var cont = msg.content;
     if (cont.startsWith(config.prefix) && !msg.author.bot) {
         var invoke = cont.split(' ')[0].substr(config.prefix.length),
             args   = cont.split(' ').slice(1);
@@ -24,7 +43,7 @@ client.on('message', msg => {
         if (invoke in cmdmap) {
             cmdmap[invoke](msg, args);
         }
-    }   
+    }  */ 
 });
 
 var cmdmap = {
