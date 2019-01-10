@@ -1,0 +1,16 @@
+{
+  "name": "membercount",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "node main.js debug"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dblapi.js": "^2.3.0",
+    "discord": "^0.8.2",
+    "discord.js": "^11.4.2"
+  }
+}
