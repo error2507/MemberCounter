@@ -2,8 +2,8 @@ const Discord = require('discord.js');
 const fs = require('fs');
 const DBL = require("dblapi.js");
 const client = new Discord.Client();
-const config = require('./config.json');
-const dbl = new DBL(config.dblToken);
+client.config = require('./config.json');
+const dbl = new DBL(client.config.dblToken);
 const embeds = require('./embeds.js');
 const cooldown = new Set();
 
@@ -16,8 +16,17 @@ fs.readdirSync('./commands', (err, files) => {
             client.commands.set(file.split('.')[0], require(`./commands/${file}`));
         }
     });
-})
+});
 
+// Getting events from ./events/
+client.events = new Map();
+fs.readdirSync('./events', (err, files) => {
+    files.forEach(file => {
+        if (file.endsWith('.js')) {
+            client.events.set(file.split('.')[0], require(`./events/${file}`));
+        }
+    });
+});
 
 client.on('ready', function(){
     console.log("MemberCounter is ready!");
@@ -30,7 +39,7 @@ client.on('ready', function(){
 client.on('message', msg => {
     if (msg.content.startsWith(config.prefix) && !msg.author.bot) {
         if (client.commands.has(msg.content.split(' ')[0].substr(config.prefix.length))) {
-            
+
         }
     }
     
@@ -148,4 +157,4 @@ client.on('guildMemberAdd', async function(newmember){
 
 
 
-client.login(config.token);
+client.login(client.config.token);
