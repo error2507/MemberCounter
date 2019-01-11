@@ -38,32 +38,6 @@ client.on('ready', function(){
     client.user.setActivity('%help', { type: 'PLAYING' });
 })
 
-async function cmd_update(msg, args) {
-    if (msg.channel.type == "dm") {
-        msg.channel.send(embeds.update.dm());
-    } else {
-        await msg.guild.fetchMember(client.user);
-        if (cooldown.has(msg.guild.id)) {
-            msg.channel.send(embeds.update.cooldown());
-        } else {
-            if ((msg.guild.me.hasPermission("CHANGE_NICKNAME") || msg.guild.me.hasPermission("ADMINISTRATOR")) && msg.guild.id != 403269713368711190) {
-                msg.channel.send(embeds.update.success(msg.guild.memberCount))
-                msg.guild.me.setNickname(msg.guild.memberCount);
-                cooldown.add(msg.guild.id)
-                setTimeout(() => {
-                    cooldown.delete(msg.guild.id);
-                }, 600000);
-            } else {
-                msg.channel.send(embeds.update.missingPerms());
-            }
-        }
-    }
-}
-
-function cmd_help(msg, args) {
-    msg.channel.send(embeds.help(client.users.get('403269713368711190').tag));
-}
-
 function cmd_invite(msg, args) {
     msg.channel.send(embeds.invite(client.users.get('403269713368711190').tag));
 }
