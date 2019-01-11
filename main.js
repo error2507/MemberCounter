@@ -29,15 +29,6 @@ fs.readdirSync('./events', (err, files) => {
     });
 });
 
-client.on('ready', function(){
-    console.log("MemberCounter is ready!");
-    dbl.postStats(client.guilds.size);
-    setInterval(function() {
-        dbl.postStats(client.guilds.size);
-    }, 300000);
-    client.user.setActivity('%help', { type: 'PLAYING' });
-})
-
 function cmd_invite(msg, args) {
     msg.channel.send(embeds.invite(client.users.get('403269713368711190').tag));
 }
@@ -105,4 +96,4 @@ client.on('guildMemberAdd', async function(newmember){
 
 
 
-client.login(client.config.token);
+client.login((client.config.debug.enabled == true ? client.config.debug.token : client.config.token));
