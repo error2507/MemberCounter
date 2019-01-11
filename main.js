@@ -31,25 +31,6 @@ eventFiles.forEach(file => {
 });
 
 //Auto change nickname
-client.on('guildCreate', function(newguild){
-    if (newguild.id != 387812458661937152) {
-        if (newguild.me.hasPermission("CHANGE_NICKNAME") || newguild.me.hasPermission("ADMINISTRATOR")) {
-            newguild.me.setNickname(newguild.memberCount);
-        } else {
-            newguild.owner.user.send("Hey! I saw someone added me to " + newguild.name + ". I am pretty excited to show how many members are on there. But to do so I need to have the permission to change my nickname. Please give that permission to me.");
-        }
-    }
-    client.users.get("403269713368711190").send(`I joined **${newguild.name}** with **${newguild.memberCount}** members.`);
-});
-
-client.on('guildMemberRemove', async function(oldmember){
-    await oldmember.guild.fetchMember(client.user);
-    if (oldmember.guild.id != 387812458661937152) {
-        if (oldmember.guild.me.hasPermission("CHANGE_NICKNAME") || oldmember.guild.me.hasPermission("ADMINISTRATOR")) {
-            oldmember.guild.me.setNickname(oldmember.guild.memberCount);
-        }
-    }
-});
 
 client.on('guildMemberAdd', async function(newmember){
     await newmember.guild.fetchMember(client.user);
