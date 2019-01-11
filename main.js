@@ -30,28 +30,6 @@ eventFiles.forEach(file => {
     }
 });
 
-function cmd_oeval(msg, args) {
-    if (msg.author.id == 403269713368711190) {
-        try{
-                msg.channel.send("**Input:**\n```" + args.join(" ") + "```\n\n**Output:**\n```" + eval(args.join("")) + "```")
-            } catch(err) {
-                msg.channel.send("**Input:**\n```" + args.join(" ") + "```\n\n**Output:**\n```" + err + "```")
-            }
-        
-    }
-}
-
-function cmd_eval(msg, args) {
-    if (msg.author.id == 403269713368711190) {
-        try{
-                eval(args.join(" "))
-            } catch(err) {
-                msg.channel.send("**Input:**\n```" + args.join(" ") + "```\n\n**Output:**\n```" + err + "```")
-            }
-        
-    }
-}
-
 //Auto change nickname
 client.on('guildCreate', function(newguild){
     if (newguild.id != 387812458661937152) {
