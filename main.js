@@ -11,6 +11,7 @@ const cooldown = new Set();
 // Getting commands from ./commands/
 client.commands = new Map();
 fs.readdirSync('./commands', (err, files) => {
+    if (err) return console.error(err);
     files.forEach(file => {
         if (file.endsWith('.js')) {
             client.commands.set(file.split('.')[0], require(`./commands/${file}`));
@@ -19,12 +20,14 @@ fs.readdirSync('./commands', (err, files) => {
 });
 
 // Getting events from ./events/
-client.events = new Map();
 fs.readdirSync('./events', (err, files) => {
+    if (err) return console.error(err);
     files.forEach(file => {
         if (file.endsWith('.js')) {
             const event = require(`./events/${file}`);
+            let eventName = file.split(".")[0];
             client.on(eventName, event.bind(null, client));
+            delete require.cache[require.resolve(`./events/${file}`)];
         }
     });
 });
