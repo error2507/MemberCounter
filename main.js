@@ -4,7 +4,7 @@ const DBL = require("dblapi.js");
 const client = new Discord.Client();
 client.config = require('./config.json');
 const dbl = new DBL(client.config.dblToken);
-const embeds = require('./embeds.js');
+client.embeds = require('./embeds.js');
 const cooldown = new Set();
 
 
@@ -23,7 +23,8 @@ client.events = new Map();
 fs.readdirSync('./events', (err, files) => {
     files.forEach(file => {
         if (file.endsWith('.js')) {
-            client.events.set(file.split('.')[0], require(`./events/${file}`));
+            const event = require(`./events/${file}`);
+            client.on(eventName, event.bind(null, client));
         }
     });
 });
@@ -36,33 +37,6 @@ client.on('ready', function(){
     }, 300000);
     client.user.setActivity('%help', { type: 'PLAYING' });
 })
-client.on('message', msg => {
-    if (msg.content.startsWith(config.prefix) && !msg.author.bot) {
-        if (client.commands.has(msg.content.split(' ')[0].substr(config.prefix.length))) {
-
-        }
-    }
-    
-    
-    /*var cont = msg.content;
-    if (cont.startsWith(config.prefix) && !msg.author.bot) {
-        var invoke = cont.split(' ')[0].substr(config.prefix.length),
-            args   = cont.split(' ').slice(1);
-
-        if (invoke in cmdmap) {
-            cmdmap[invoke](msg, args);
-        }
-    }  */ 
-});
-
-var cmdmap = {
-    update: cmd_update,
-    help: cmd_help,
-    invite: cmd_invite,
-    stats: cmd_stats,
-    oeval: cmd_oeval,
-    eval: cmd_eval
-}
 
 async function cmd_update(msg, args) {
     if (msg.channel.type == "dm") {
