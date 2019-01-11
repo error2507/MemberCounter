@@ -30,17 +30,4 @@ eventFiles.forEach(file => {
     }
 });
 
-//Auto change nickname
-
-client.on('guildMemberAdd', async function(newmember){
-    await newmember.guild.fetchMember(client.user);
-    if (newmember.guild.id != 387812458661937152) {
-        if (newmember.guild.me.hasPermission("CHANGE_NICKNAME") || newmember.guild.me.hasPermission("ADMINISTRATOR")) {
-            newmember.guild.me.setNickname(newmember.guild.memberCount);
-        } 
-    }
-});
-
-
-
 client.login((client.config.debug.enabled == true ? client.config.debug.token : client.config.token));
