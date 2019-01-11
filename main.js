@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const DBL = require("dblapi.js");
 const client = new Discord.Client();
 client.config = require('./config.json');
 client.embeds = require('./embeds.js');
@@ -9,25 +8,26 @@ const cooldown = new Set();
 
 // Getting commands from ./commands/
 client.commands = new Map();
-fs.readdirSync('./commands', (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-        if (file.endsWith('.js')) {
-            client.commands.set(file.split('.')[0], require(`./commands/${file}`));
-        }
-    });
+let commandFiles = fs.readdirSync('./commands');
+commandFiles.forEach(file => {
+    if (file.endsWith('.js')) {
+        console.log("[ LOADING ] [ COMMAND ] " + file);
+        client.commands.set(file.split('.')[0], require(`./commands/${file}`));
+    }
 });
 
+
 // Getting events from ./events/
-fs.readdirSync('./events', (err, files) => {
-    if (err) return console.error(err);
-    files.forEach(file => {
-        const eventFunction = require(`./events/${file}`);
+let eventFiles = fs.readdirSync('./events');
+eventFiles.forEach(file => {
+    if (file.endsWith('.js')) {
+        console.log("[ LOADING ] [ EVENT ] " + file);
+        let eventFunction = require(`./events/${file}`);
         let eventName = file.split(".")[0];
-        client.on(eventName, (client, ...args) => {
-            eventFunction.run(client, ...args)
-          });
-      });
+        client.on(eventName, (...args) => {
+            eventFunction.run(...args, client);
+        });
+    }
 });
 
 function cmd_invite(msg, args) {

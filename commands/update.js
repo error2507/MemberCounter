@@ -1,3 +1,4 @@
+const cooldown = new Set();
 module.exports.run = async (msg, args, client) => {
     if (msg.channel.type == "dm") {
         msg.channel.send(client.embeds.update.dm());
