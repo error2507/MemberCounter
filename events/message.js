@@ -1,4 +1,4 @@
-module.exports = (client, msg) => {
+module.exports.run = (client, msg) => {
     if (msg.content.startsWith(client.config.prefix) && !msg.author.bot) {
         if (client.commands.has(msg.content.split(' ')[0].substr(config.prefix.length))) {
             let args = msg.content.split(' ').slice(1);

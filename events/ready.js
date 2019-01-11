@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-module.exports = (client) => {
+module.exports.run = (client) => {
     const dbl = new DBL(client.config.dblToken);
     console.log(client.user.tag + " (ID: " + client.user.id + ") is ready.");
     console.log("MemberCounter is ready!");
