@@ -30,15 +30,6 @@ eventFiles.forEach(file => {
     }
 });
 
-function cmd_stats(msg) {
-    let charset = ['e', 'r', 'o', '2', '5', '0', '7', 'm', 'b', 'c', 'u', 'n', 't'];
-    let random = '';
-    for (d = 0; d < 6; d++) {
-        random += charset[Math.floor(Math.random() * charset.length)];
-    }
-    msg.channel.send(embeds.stats(random));
-}
-
 function cmd_oeval(msg, args) {
     if (msg.author.id == 403269713368711190) {
         try{
