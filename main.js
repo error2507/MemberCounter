@@ -1,0 +1,46 @@
+const Discord = require('discord.js');
+const fs = require('fs');
+const client = new Discord.Client();
+client.config = require('./config.json');
+client.embeds = require('./embeds.js');
+const cooldown = new Set();
+
+
+// Getting commands from ./commands/
+client.commands = new Map();
+let commandFiles = fs.readdirSync('./commands');
+commandFiles.forEach(file => {
+    if (file.endsWith('.js')) {
+        console.log("[ LOADING ] [ COMMAND ] " + file);
+        client.commands.set(file.split('.')[0], require(`./commands/${file}`));
+    }
+});
+
+
+// Getting events from ./events/
+let eventFiles = fs.readdirSync('./events');
+eventFiles.forEach(file => {
+    if (file.endsWith('.js')) {
+        console.log("[ LOADING ] [ EVENT ] " + file);
+        let eventFunction = require(`./events/${file}`);
+        let eventName = file.split(".")[0];
+        client.on(eventName, (...args) => {
+            eventFunction.run(...args, client);
+        });
+    }
+});
+
+//Auto change nickname
+
+client.on('guildMemberAdd', async function(newmember){
+    await newmember.guild.fetchMember(client.user);
+    if (newmember.guild.id != 387812458661937152) {
+        if (newmember.guild.me.hasPermission("CHANGE_NICKNAME") || newmember.guild.me.hasPermission("ADMINISTRATOR")) {
+            newmember.guild.me.setNickname(newmember.guild.memberCount);
+        } 
+    }
+});
+
+
+
+client.login((client.config.debug.enabled == true ? client.config.debug.token : client.config.token));
