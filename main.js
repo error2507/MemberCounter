@@ -30,10 +30,6 @@ eventFiles.forEach(file => {
     }
 });
 
-function cmd_invite(msg, args) {
-    msg.channel.send(embeds.invite(client.users.get('403269713368711190').tag));
-}
-
 function cmd_stats(msg) {
     let charset = ['e', 'r', 'o', '2', '5', '0', '7', 'm', 'b', 'c', 'u', 'n', 't'];
     let random = '';
