@@ -22,13 +22,10 @@ fs.readdirSync('./commands', (err, files) => {
 fs.readdirSync('./events', (err, files) => {
     if (err) return console.error(err);
     files.forEach(file => {
-        if (file.endsWith('.js')) {
-            const event = require(`./events/${file}`);
-            let eventName = file.split(".")[0];
-            client.on(eventName, event.bind(null, client));
-            delete require.cache[require.resolve(`./events/${file}`)];
-        }
-    });
+        const event = require(`./events/${file}`);
+        let eventName = file.split(".")[0];
+        client.on(eventName, event.bind(null, client));
+      });
 });
 
 function cmd_invite(msg, args) {
