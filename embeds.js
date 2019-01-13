@@ -19,6 +19,7 @@ module.exports = {
             .addField('Invite me to your server (Please make sure I get all the permissions I need)', 'https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot')
             .addField('My support server', 'https://discord.gg/nGu44pF')
             .addField('Vote for me on discordbots.org', 'https://discordbots.org/bot/448845486515027970')
+            .addField('My GitHub Repo', 'https://github.com/error2507/MemberCounter')
             .setFooter('Bot coded by ' + tag);
         return embed;
     },
