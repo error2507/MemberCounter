@@ -3,7 +3,6 @@ const fs = require('fs');
 const client = new Discord.Client();
 client.config = require('./config.json');
 client.embeds = require('./embeds.js');
-const cooldown = new Set();
 
 
 // Getting commands from ./commands/
