@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 const fs = require('fs');
+const DBL = require("dblapi.js");
 const client = new Discord.Client();
 client.config = require('./config.json');
 client.embeds = require('./embeds.js');
+client.dbl = new DBL(client.config.dblToken);
 
 
 // Getting commands from ./commands/
