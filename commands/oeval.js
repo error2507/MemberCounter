@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 module.exports.run = async (msg, args, client) => {
     if (msg.author.id == 403269713368711190) {
         try {
