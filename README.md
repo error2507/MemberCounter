@@ -14,6 +14,3 @@ The best way to use it is to set MemberCounters role at top of all roles or at l
 ## Links
 * MemberCounters invite: https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot
 * MemberCounters official support discord server: https://discord.gg/nGu44pF
-
-## Requirements
-You need your "normal" Bottoken, then a Token for Debugging and one for the dblapi.js

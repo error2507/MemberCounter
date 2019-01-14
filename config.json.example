@@ -1,10 +1,10 @@
 {
     "debug": {
-        "token": "YOUR_DEBUGTOKEN_HERE",
+        "token": "DEBUGTOKEN_HERE",
         "prefix":"5",
         "enabled": true
     },
-    "token":"YOUR_TOKEN_HERE",
-    "dblToken":"YOUR_DBLTOKEN_HERE",
+    "token":"_TOKEN_HERE",
+    "dblToken":"DBLTOKEN",
     "prefix":"%"
 }
