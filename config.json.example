@@ -4,7 +4,7 @@
         "prefix":"5",
         "enabled": true
     },
-    "token":"_TOKEN_HERE",
+    "token":"TOKEN_HERE",
     "dblToken":"DBLTOKEN",
     "prefix":"%"
 }
