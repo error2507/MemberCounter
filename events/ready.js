@@ -6,5 +6,6 @@ module.exports.run = (client) => {
             client.dbl.postStats(client.guilds.size);
         }, 300000);
     }
-    client.user.setActivity((client.config.debug.enabled == true ? client.config.debug.prefix : client.config.prefix) + 'help', { type: 'PLAYING' });
-}
+    client.user.setActivity((client.config.debug.enabled == true ? client.config.debug.prefix : client.config.prefix) + 'help', { type: 'PLAYING' })
+        .then((err) => console.error("[ ERROR ] ", err));
+};

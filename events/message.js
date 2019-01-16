@@ -6,4 +6,4 @@ module.exports.run = (msg, client) => {
             client.commands.get(msg.content.split(' ')[0].substr(prefix.length)).run(msg, args, client);
         }
     }
-}
+};
