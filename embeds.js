@@ -65,5 +65,14 @@ module.exports = {
                 .setDescription('You can only use this command on server I am on but not via direct messages.');
             return embed;
         }
+    },
+
+    config: {
+        list(configData) {
+            let embed = new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setThumbnail('Current guilds config')
+                .setDescription('```json\n' + JSON.stringify(configData) + '\n```');
+        }
     }
-}
+};

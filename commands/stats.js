@@ -5,5 +5,5 @@ module.exports.run = (msg, args, client) => {
         random += charset[Math.floor(Math.random() * charset.length)];
     }
     msg.channel.send(client.embeds.stats(random))
-        .then((err) => console.error("[ ERROR ] ", err));
+        .catch((err) => console.error("[ ERROR ] ", err));
 };
