@@ -1,13 +1,14 @@
 let discord = require('discord.js');
 module.exports = {
-    help(tag) {
+    help(tag, prefix) {
         let embed = new discord.RichEmbed()
             .setColor(0x00bcd4)
             .setTitle('Help')
             .setDescription('On join I automatically set my nickname to the actual membercount (with all bots). When a member leaves or joins I also update my nickname. **Tip:** set my role as hoisted and place it at the top so it is easier to see. Therefore I don\'t need much commands. But if you think my nickname isn\'t showing the correct amount, you can use the following command to manually update my nickname.')
-            .addField('%update', 'With this command I update my nickname.')
-            .addField('%invite', 'Shows the link to invite me to your server and the invite link to my support server.')
-            .addField('%stats', 'Shows my stats on discordbots.org.')
+            .addField(prefix + 'update', 'With this command I update my nickname.')
+            .addField(prefix + 'invite', 'Shows the link to invite me to your server and the invite link to my support server.')
+            .addField(prefix + 'stats', 'Shows my stats on discordbots.org.')
+            .addField(prefix + 'config', 'Guild specific configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md).')
             .setFooter('Bot coded by ' + tag);
         return embed;
     },
