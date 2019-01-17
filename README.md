@@ -10,6 +10,14 @@ The best way to use it is to set MemberCounters role at top of all roles or at l
 * `<prefix>update`: When you believe MemberCounters nickname isn't showing the correct amount of member because of a downtime or whatever, use this command to update its nickname.
 * `<prefix>invite`: Shows the link to invite me to your server and the invite link to my support server.
 * `<prefix>stats`: Shows the bots stats on discordbots.org.
+* `<prefix>config`: Guild specific configuration
+
+## Guild Specific Configuration
+
+| Key | Type | Example | Description |
+|-----|------|---------|-------------|
+| `format` | string | `%all% (online: %online%)` | Format the count will be displayed in the nickname:<br>`%all%` - all members count<br>`%online%` - online members count<br>`%offline%` - offline members count |
+| `countBots` | bool | `true` | Set if bots will be counted or not. |
 
 ## Links
 * MemberCounters invite: https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot
