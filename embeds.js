@@ -70,7 +70,7 @@ module.exports = {
     config: {
         list(configData) {
             return new discord.RichEmbed()
-                .setColor(0xf44336)
+                .setColor(0x00bcd4)
                 .setTitle('Current guilds config')
                 .setDescription('```json\n' + JSON.stringify(configData, 0, 2) + '\n```');
         },
@@ -79,14 +79,14 @@ module.exports = {
             let data = {};
             data[key] = configData[key];
             return new discord.RichEmbed()
-                .setColor(0xf44336)
+                .setColor(0x00bcd4)
                 .setTitle('Currently set value on this guild')
                 .setDescription('```json\n' + JSON.stringify(data, 0, 2) + '\n```');
         },
 
         valueSet(key, value) {
             return new discord.RichEmbed()
-                .setColor(0xf44336)
+                .setColor(0x4caf50)
                 .setTitle('Guild config set')
                 .setDescription(`Set value of \`${key}\` to \`${value}\`.`);
         },
