@@ -1,5 +1,5 @@
 module.exports.run = (msg, client) => {
-    let prefix = (client.config.debug.enabled == true ? client.config.debug.prefix : client.config.prefix);
+    let prefix = client.config.prefix;
     if (msg.content.startsWith(prefix) && !msg.author.bot) {
         if (client.commands.has(msg.content.split(' ')[0].substr(prefix.length))) {
             let args = msg.content.split(' ').slice(1);

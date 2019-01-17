@@ -11,7 +11,17 @@ const client = new Discord.Client({
     fetchAllMembers: true
 });
 
-client.config = require('./config.json');
+var debugMode = process.argv.includes('debug');
+
+try {
+    client.config = require('./config.json');
+    if (debugMode)
+        client.config = client.config.debug;
+} catch (err) {
+    console.error('[ FATAL ] Failed parsing config.json: ', err);
+    process.exit(1);
+}
+
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
 client.db = Low(new FileSync('localdb.json'));
@@ -40,4 +50,4 @@ eventFiles.forEach(file => {
     }
 });
 
-client.login((client.config.debug.enabled == true ? client.config.debug.token : client.config.token));
+client.login(client.config.token);
