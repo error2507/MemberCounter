@@ -69,10 +69,33 @@ module.exports = {
 
     config: {
         list(configData) {
-            let embed = new discord.RichEmbed()
+            return new discord.RichEmbed()
                 .setColor(0xf44336)
-                .setThumbnail('Current guilds config')
-                .setDescription('```json\n' + JSON.stringify(configData) + '\n```');
-        }
-    }
+                .setTitle('Current guilds config')
+                .setDescription('```json\n' + JSON.stringify(configData, 0, 2) + '\n```');
+        },
+
+        currValue(configData, key) {
+            let data = {};
+            data[key] = configData[key];
+            return new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setTitle('Currently set value on this guild')
+                .setDescription('```json\n' + JSON.stringify(data, 0, 2) + '\n```');
+        },
+
+        valueSet(key, value) {
+            return new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setTitle('Guild config set')
+                .setDescription(`Set value of \`${key}\` to \`${value}\`.`);
+        },
+
+        errWrongKey(key) {
+            return new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setTitle('Error')
+                .setDescription(`Invalid config key: \`${key}\``);
+        },
+    },
 };
