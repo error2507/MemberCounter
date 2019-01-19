@@ -1,6 +1,8 @@
-module.exports.run = async (newmember, client) => {
-    await newmember.guild.fetchMember(client.user);
+const utils = require('../utils');
+
+module.exports.run = (newmember, client) => {
     if (newmember.guild.me.hasPermission("CHANGE_NICKNAME") || newmember.guild.me.hasPermission("ADMINISTRATOR")) {
-        newmember.guild.me.setNickname(newmember.guild.memberCount);
-    } 
-}
+        utils.setNickname(newmember.guild, client)
+        	.catch((err) => console.error("[ ERROR ] ", err));
+    }
+};

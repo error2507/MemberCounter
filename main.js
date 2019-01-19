@@ -1,11 +1,30 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const DBL = require("dblapi.js");
-const client = new Discord.Client();
-client.config = require('./config.json');
+const Low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
+
+const client = new Discord.Client({
+    // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
+    // this should be set to true to get always the right ammount of members
+    // per guild. - zekro
+    fetchAllMembers: true
+});
+
+var debugMode = process.argv.includes('debug');
+
+try {
+    client.config = require('./config.json');
+    if (debugMode)
+        client.config = client.config.debug;
+} catch (err) {
+    console.error('[ FATAL ] Failed parsing config.json: ', err);
+    process.exit(1);
+}
+
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
-
+client.db = Low(new FileSync('localdb.json'));
 
 // Getting commands from ./commands/
 client.commands = new Map();
@@ -31,4 +50,4 @@ eventFiles.forEach(file => {
     }
 });
 
-client.login((client.config.debug.enabled == true ? client.config.debug.token : client.config.token));
+client.login(client.config.token);
