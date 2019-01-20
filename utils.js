@@ -3,12 +3,15 @@ module.exports = {
     getMemberCount(guild, client) {
         if (!guild)
             return 0;
-       	let countBots = client.db.get(`guilds.${guild.id}.config.countBots`).value();
-        let membs = guild.members.filter((m) => countBots || !m.user.bot);
-        let all = membs.size;
-        let online = membs.filter((m) => m.presence.status != 'offline').size;
-        let offline = all - online;
-        return {all, online, offline};
+        return new Promise((resolve, reject) => {
+            client.db.getGuildConfig(guild).then((cfg) => {
+                let membs = guild.members.filter((m) => cfg.countBots || !m.user.bot);
+                let all = membs.size;
+                let online = membs.filter((m) => m.presence.status != 'offline').size;
+                let offline = all - online;
+                resolve({all, online, offline});
+            }).catch(reject);
+        });
     },
 
     formatCount(countObj, format) {
@@ -22,10 +25,12 @@ module.exports = {
     },
 
     setNickname(guild, client) {
-    	let count = this.getMemberCount(guild, client);
-    	let format = client.db.get(`guilds.${guild.id}.config.format`).value();
-    	let formated = this.formatCount(count, format);
-    	return guild.me.setNickname(formated);
+    	this.getMemberCount(guild, client).then((count) => {
+            client.db.getGuildConfig(guild).then((cfg) => {
+                let formated = this.formatCount(count, cfg.format);
+                guild.me.setNickname(formated);
+            });
+        });
     },
 
 };

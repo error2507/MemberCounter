@@ -15,8 +15,7 @@ module.exports.run = (msg, args, client) => {
                     let count = utils.getMemberCount(msg.guild, client);
                     msg.channel.send(client.embeds.update.success(count.all))
                         .catch((err) => console.error("[ ERROR ] ", err));
-                    utils.setNickname(msg.guild, client)
-                        .catch((err) => console.error("[ ERROR ] ", err));
+                    utils.setNickname(msg.guild, client);
                     cooldown.add(msg.guild.id);
                     setTimeout(() => {
                         cooldown.delete(msg.guild.id);
