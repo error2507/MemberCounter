@@ -34,12 +34,12 @@ module.exports = class Sqlite extends DBDriver {
                 return `${k} = ${value}`;
             }).join(', ');
         return new Promise((resolve, reject) => {
-            this.db.run(`UPDATE guildconfig SET ${sets} WHERE guildID = "${guild}"`, (res, err) => {
+            this.db.run(`UPDATE guildconfig SET ${sets} WHERE guildID = "${guild}"`, (err) => {
                 if (err) {
                     reject(err);
                     return;
                 }
-                resolve(res);
+                resolve();
             });
         });
     }
