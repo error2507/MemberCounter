@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const fs = require('fs');
 const DBL = require("dblapi.js");
-const Low = require('lowdb');
-const FileSync = require('lowdb/adapters/FileSync');
+
+const Sqlite = require('./db/sqlite');
 
 const client = new Discord.Client({
     // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
@@ -24,7 +24,9 @@ try {
 
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
-client.db = Low(new FileSync('localdb.json'));
+client.db = new Sqlite(client.config.dbFile);
+
+client.db.getGuildConfig('526196711962705925');
 
 // Getting commands from ./commands/
 client.commands = new Map();

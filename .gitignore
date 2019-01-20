@@ -3,3 +3,4 @@ config.json
 node_modules/*
 package-lock.json
 localdb.json
+*.db
