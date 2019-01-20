@@ -26,8 +26,6 @@ client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
 client.db = new Sqlite(client.config.dbFile);
 
-client.db.getGuildConfig('526196711962705925');
-
 // Getting commands from ./commands/
 client.commands = new Map();
 let commandFiles = fs.readdirSync('./commands');
