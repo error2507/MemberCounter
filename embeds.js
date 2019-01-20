@@ -34,6 +34,13 @@ module.exports = {
         return embed;
     },
 
+    generalError(desc, err) {
+        return new discord.RichEmbed()
+            .setColor(0x4caf50)
+            .setTitle('Error')
+            .setFooter(desc + '```\n' + err + '\n```');
+    },
+
     update: {
         success(membercount) {
             let embed = new discord.RichEmbed()
