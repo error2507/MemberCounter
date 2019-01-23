@@ -1,3 +1,8 @@
+/**
+ * General abstract class for defining database drivers.
+ * @abstract
+ * @class
+ */
 module.exports = class DBDriver {
 
     /**

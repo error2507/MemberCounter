@@ -1,25 +1,28 @@
 const stdConfig = {
     'format':    '%all%',
-    'countBots': true,
+    'countBots': 1,
 };
 const stdConfigTypeTransforms = {
     'format': (v) => v,
-    'countBots': (v) => v.toLowerCase() == 'true',
+    'countBots': (v) => v.toLowerCase() == 'true' || v == '1' ? 1 : 0,
 };
 
 module.exports.run = (msg, args, client) => {
     client.db.getGuildConfig(msg.guild).then((guildConfig) => {
         Object.keys(stdConfig).forEach((k) => {
-            if (!guildConfig[k])
+            if (guildConfig[k] == null)
                 guildConfig[k] = stdConfig[k];
         });
+
         if (!guildConfig)
             guildConfig = stdConfig;
+
         if (args.length < 1) {
             msg.channel.send(client.embeds.config.list(guildConfig))
                 .catch((err) => console.error("[ ERROR ] ", err));
             return;
         }
+        
         let cfgKey = Object.keys(stdConfig)
             .find((k) => k.toLowerCase() == args[0].toLowerCase());
         if (!cfgKey) {
@@ -31,6 +34,7 @@ module.exports.run = (msg, args, client) => {
             msg.channel.send(client.embeds.config.currValue(guildConfig, args[0]));
             return;
         }
+
         let cfgValue = args.slice(1).join(' ');
         cfgValue = stdConfigTypeTransforms[cfgKey](cfgValue);
         let newCfg = {};
