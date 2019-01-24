@@ -35,6 +35,17 @@ module.exports = class TimeoutHandler {
     }
 
     /**
+     * Returns a registered timeout handler by name.
+     * Returns null if no handler is registered by
+     * this name.
+     * @param {string} name name of the timeout handler
+     * @returns {Object} timeout Handler or null
+     */
+    getTimeoutHandler(name) {
+        return this.registeredTimeouts[name];
+    }
+
+    /**
      * Returns 0 if the timeout handler is not timeouted or
      * if the handler was not registered with this name.
      * If the handler is timeouted, it returns the numer
