@@ -3,6 +3,7 @@ const fs = require('fs');
 const DBL = require("dblapi.js");
 
 const Sqlite = require('./db/sqlite');
+const Timeout = require('./extensions/timeout');
 
 const client = new Discord.Client({
     // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
@@ -25,6 +26,8 @@ try {
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
 client.db = new Sqlite(client.config.dbFile);
+client.timeout = new Timeout()
+    .register('cmdupdate', 30 * 1000, 1);
 
 // Getting commands from ./commands/
 client.commands = new Map();

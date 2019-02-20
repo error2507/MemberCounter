@@ -58,11 +58,11 @@ module.exports = {
             return embed;
         },
 
-        cooldown() {
+        cooldown(time) {
             let embed = new discord.RichEmbed()
                 .setColor(0xf44336)
                 .setTitle('Cooldown')
-                .setDescription('Please don\'t spam this command. You can use it again 10 minutes after last usage of the command on this server.');
+                .setDescription(`Please don\'t spam this command. You can use it again in ${Math.floor(time / 1000)} seconds.`);
             return embed;
         },
 
