@@ -24,11 +24,12 @@ module.exports = {
     	return format;
     },
 
-    setNickname(guild, client) {
+    setNickname(guild, client, cb) {
     	this.getMemberCount(guild, client).then((count) => {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
                 guild.me.setNickname(formated);
+                if (cb) cb(formated);
             });
         });
     },
@@ -36,7 +37,7 @@ module.exports = {
     encapsuleString(data) {
         if (typeof data == 'string')
             return '"' + data + '"'
-        return data
+        return data;
     }
 
 };

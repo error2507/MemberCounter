@@ -46,7 +46,7 @@ module.exports = {
             let embed = new discord.RichEmbed()
                 .setColor(0x4caf50)
                 .setTitle('Success')
-                .setDescription(`I successfully changed my nickname to ${membercount}`);
+                .setDescription(`I successfully changed my nickname to \`${membercount}\``);
             return embed;
         },
 
