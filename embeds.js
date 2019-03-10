@@ -77,10 +77,21 @@ module.exports = {
 
     config: {
         list(configData) {
-            return new discord.RichEmbed()
+            let embed =  new discord.RichEmbed()
                 .setColor(0x00bcd4)
-                .setTitle('Current guilds config')
-                .setDescription('```json\n' + JSON.stringify(configData, 0, 2) + '\n```');
+                .setTitle('Current guilds config');
+            Object.keys(configData).forEach(k => {
+                switch (k) {
+                    case "format":
+                        embed.addField("Format", configData[k]);
+                        break;
+                    case "countBots":
+                        embed.addField("Are bots counted?", (configData[k] == 0 ? "No" : "Yes"));
+                        break;
+                }
+
+            });
+            return embed;
         },
 
         currValue(configData, key) {
