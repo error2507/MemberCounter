@@ -105,5 +105,15 @@ module.exports = {
                 .setTitle('Error')
                 .setDescription(`Invalid config key: \`${key}\``);
         },
+
+        chooseOption() {
+            return new discord.RichEmbed()
+                .setColor(0x00bcd4)
+                .setTitle("Config Menu")
+                .setDescription("What do you want to do? React below!")
+                .addField("👁 See the current config", "You can see the current config on this server.")
+                .addField("✏ Edit the format of the nickname", "You can edit how the bot displays the members and if it should show online members.")
+                .addField("🤖 Decide whether bots should be counted", "You can decide whether bots should be counted or just members.");
+        }
     },
 };
