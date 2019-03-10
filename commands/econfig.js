@@ -67,6 +67,7 @@ module.exports.run = async (msg, args, client) => {
                                                 client.db.setGuildConfig(msg.guild, newCfg).then(() => {
                                                     msg.channel.send(client.embeds.config.valueSet("format", cfgValue))
                                                         .then(success => {
+                                                            fMsg.delete(30000);
                                                             cMsg.delete(30000);
                                                             success.delete(30000);
                                                         })
