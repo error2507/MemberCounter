@@ -18,8 +18,9 @@ module.exports.run = async (msg, args, client) => {
             await cMsg.react("🤖");
             let filter = (reaction, user) => (reaction.emoji.name === '👁' || reaction.emoji.name === '✏' || reaction.emoji.name === '🤖') && user.id === msg.author.id;
             cMsg.awaitReactions(filter, { time: 60000, max: 1 })
-                .then(reactions => {
+                .then(async reactions => {
                     if (reactions.size == 1) {
+                        let filter
                         switch (reactions.first().emoji.name) {
                             case '👁':
                                 // Removing all reactions
@@ -49,14 +50,12 @@ module.exports.run = async (msg, args, client) => {
                             case '✏':
                                 cMsg.clearReactions();
                                 cMsg.edit(client.embeds.config.enterFormat());
-                                let filter = m => m.author.id == msg.author.id;
+                                filter = m => m.author.id == msg.author.id;
                                 msg.channel.awaitMessages(filter, { max: 1, time: 60000 })
                                     .then(msgs => {
                                         if (msgs.size == 1) {
                                             let fMsg = msgs.first();
                                             if ((fMsg.content.includes("%all%") || fMsg.content.includes("%online%")) && !fMsg.content.includes("\"")) {
-                                                // All values after the first command argument will be interpreted as
-                                                // config value to set for specified config key.
                                                 let cfgValue = fMsg.content;
                                                 // Transform config value by keys type transformation function.
                                                 cfgValue = stdConfigTypeTransforms["format"](cfgValue);
@@ -65,8 +64,9 @@ module.exports.run = async (msg, args, client) => {
                                                 newCfg["format"] = cfgValue;
                                                 // Update guild config in database.
                                                 client.db.setGuildConfig(msg.guild, newCfg).then(() => {
-                                                    msg.channel.send(client.embeds.config.valueSet("format", cfgValue))
+                                                    msg.channel.send(client.embeds.config.formatSet(cfgValue))
                                                         .then(success => {
+                                                            msg.delete(30000);
                                                             fMsg.delete(30000);
                                                             cMsg.delete(30000);
                                                             success.delete(30000);
@@ -81,6 +81,45 @@ module.exports.run = async (msg, args, client) => {
                                     })
                                 break;
                             case '🤖':
+                                await cMsg.clearReactions();
+                                cMsg.edit(client.embeds.config.botCount());
+                                await cMsg.react("✅");
+                                await cMsg.react("❎");
+                                filter = (reaction, user) => (reaction.emoji.name === '✅' || reaction.emoji.name === '❎') && user.id === msg.author.id;
+                                cMsg.awaitReactions(filter, { time: 60000, max: 1 })
+                                    .then(r => {
+                                        if (r.size == 1) {
+                                            if (r.first().emoji.name == '✅') {
+                                                let cfgValue = args.slice(1).join(' ');
+                                                // Transform config value by keys type transformation function.
+                                                cfgValue = 1;
+                                                // Create object and set key and value to it.
+                                                let newCfg = {};
+                                                newCfg["countBots"] = cfgValue;
+                                                // Update guild config in database.
+                                                client.db.setGuildConfig(msg.guild, newCfg).then(() => {
+                                                    msg.channel.send(client.embeds.config.botCountSet("yes"))
+                                                }).catch((err) => msg.channel.send(client.embeds.generalError('Error writing config data to database:', err)));
+                                            } else {
+                                                let cfgValue = args.slice(1).join(' ');
+                                                // Transform config value by keys type transformation function.
+                                                cfgValue = 0;
+                                                // Create object and set key and value to it.
+                                                let newCfg = {};
+                                                newCfg["countBots"] = cfgValue;
+                                                // Update guild config in database.
+                                                client.db.setGuildConfig(msg.guild, newCfg).then(() => {
+                                                    msg.channel.send(client.embeds.config.botCountSet("no"))
+                                                        .then(success => {
+                                                            msg.delete(30000);
+                                                            cMsg.delete(30000);
+                                                            success.delete(30000);
+                                                        })
+                                                        .catch((err) => console.error("[ ERROR ] ", err));
+                                                }).catch((err) => msg.channel.send(client.embeds.generalError('Error writing config data to database:', err)));
+                                            }
+                                        }
+                                    })
                                 break;
                         }
                     }

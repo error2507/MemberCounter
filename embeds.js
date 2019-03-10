@@ -94,20 +94,11 @@ module.exports = {
             return embed;
         },
 
-        currValue(configData, key) {
-            let data = {};
-            data[key] = configData[key];
-            return new discord.RichEmbed()
-                .setColor(0x00bcd4)
-                .setTitle('Currently set value on this guild')
-                .setDescription('```json\n' + JSON.stringify(data, 0, 2) + '\n```');
-        },
-
-        valueSet(key, value) {
+        formatSet(value) {
             return new discord.RichEmbed()
                 .setColor(0x4caf50)
-                .setTitle('Guild config set')
-                .setDescription(`Set value of \`${key}\` to \`${value}\`.`);
+                .setTitle('Format set')
+                .setDescription(`Format set to \`${value}\`.`);
         },
 
         errWrongKey(key) {
@@ -140,6 +131,20 @@ module.exports = {
                 .setTitle("Your format is incorrect")
                 .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%` and `%online%`)")
                 .addField("Second option:", "You used a `\"` which is not allowed.");
+        },
+
+        botCount() {
+            return new discord.RichEmbed()
+                .setColor(0x00bcd4)
+                .setTitle("Should bots be counted?")
+                .setDescription("Should bots (including this one) be counted in %all% and %online%?\n✅: Yes, they should be counted.\n❎:No, they shouldn't be counted.");
+        },
+
+        botCountSet(value) {
+            return new discord.RichEmbed()
+                .setColor(0x4caf50)
+                .setTitle('Format set')
+                .setDescription(`Botcount set to \`${value}\`.`);
         }
     },
 };
