@@ -115,7 +115,7 @@ module.exports = {
             return new discord.RichEmbed()
                 .setColor(0x00bcd4)
                 .setTitle("Enter your desired format")
-                .setDescription("Enter you desrired format. Use `%all` for a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
+                .setDescription("Enter you desrired format. Use `%all%` for a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
         },
 
         incorrectFormat() {
