@@ -101,20 +101,13 @@ module.exports = {
                 .setDescription(`Format set to \`${value}\`.`);
         },
 
-        errWrongKey(key) {
-            return new discord.RichEmbed()
-                .setColor(0xf44336)
-                .setTitle('Error')
-                .setDescription(`Invalid config key: \`${key}\``);
-        },
-
         chooseOption() {
             return new discord.RichEmbed()
                 .setColor(0x00bcd4)
                 .setTitle("Config Menu")
                 .setDescription("What do you want to do? React below!")
                 .addField("👁 See the current config", "You can see the current config on this server.")
-                .addField("✏ Edit the format of the nickname", "You can edit how the bot displays the members and if it should show online members.")
+                .addField("✏ Edit the format of the nickname", "You can edit how the bot displays the members.")
                 .addField("🤖 Decide whether bots should be counted", "You can decide whether bots should be counted or just members.");
         },
 
@@ -122,14 +115,14 @@ module.exports = {
             return new discord.RichEmbed()
                 .setColor(0x00bcd4)
                 .setTitle("Enter your desired format")
-                .setDescription("Enter you desrired format. Use `%all` for a placeholder for all (online and offline) members.\nYou can use `%online%` as placeholder just for members that are online. (Note: This spams your audit-log)\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
+                .setDescription("Enter you desrired format. Use `%all` for a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
         },
 
         incorrectFormat() {
             return new discord.RichEmbed()
                 .setColor(0xf44336)
                 .setTitle("Your format is incorrect")
-                .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%` and `%online%`)")
+                .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%`)")
                 .addField("Second option:", "You used a `\"` which is not allowed.");
         },
 
