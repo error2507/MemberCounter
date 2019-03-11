@@ -138,6 +138,13 @@ module.exports = {
                 .setColor(0x4caf50)
                 .setTitle('Format set')
                 .setDescription(`Botcount set to \`${value}\`.`);
+        },
+
+        noAdmin() {
+            return new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setTitle("Admin need!")
+                .setDescription("You need admin permissions to use this command.")
         }
     },
 };

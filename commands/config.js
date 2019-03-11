@@ -11,6 +11,10 @@ const stdConfigTypeTransforms = {
     'countBots': (v) => v.toLowerCase() == 'true' || v == '1' ? 1 : 0,
 };
 module.exports.run = async (msg, args, client) => {
+    if (msg.channel.type == 'dm') {
+        msg.channel.send(client.embeds.update.dm());
+        return;
+    }
     msg.channel.send(client.embeds.config.chooseOption())
         .then(async cMsg => {
             await cMsg.react("👁");
@@ -48,6 +52,10 @@ module.exports.run = async (msg, args, client) => {
                                 })
                                 break;
                             case '✏':
+                                if (!msg.member.hasPermission("ADMINISTRATOR")) {
+                                    msg.channel.send(client.embeds.config.noAdmin());
+                                    return;
+                                }
                                 cMsg.clearReactions();
                                 cMsg.edit(client.embeds.config.enterFormat());
                                 filter = m => m.author.id == msg.author.id;
@@ -81,6 +89,10 @@ module.exports.run = async (msg, args, client) => {
                                     })
                                 break;
                             case '🤖':
+                                if (!msg.member.hasPermission("ADMINISTRATOR")) {
+                                    msg.channel.send(client.embeds.config.noAdmin());
+                                    return;
+                                }
                                 await cMsg.clearReactions();
                                 cMsg.edit(client.embeds.config.botCount());
                                 await cMsg.react("✅");
