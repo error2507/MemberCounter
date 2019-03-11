@@ -130,7 +130,7 @@ module.exports = {
             return new discord.RichEmbed()
                 .setColor(0x00bcd4)
                 .setTitle("Should bots be counted?")
-                .setDescription("Should bots (including this one) be counted in %all% and %online%?\n✅: Yes, they should be counted.\n❎:No, they shouldn't be counted.");
+                .setDescription("Should bots (including this one) be counted in %all%?\n✅: Yes, they should be counted.\n❎:No, they shouldn't be counted.");
         },
 
         botCountSet(value) {
@@ -138,6 +138,13 @@ module.exports = {
                 .setColor(0x4caf50)
                 .setTitle('Format set')
                 .setDescription(`Botcount set to \`${value}\`.`);
+        },
+
+        noAdmin() {
+            return new discord.RichEmbed()
+                .setColor(0xf44336)
+                .setTitle("Admin need!")
+                .setDescription("You need admin permissions to use this command.")
         }
     },
 };
