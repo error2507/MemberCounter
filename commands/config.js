@@ -4,12 +4,6 @@ const stdConfig = {
     'countBots': 1,
 };
 
-const stdConfigTypeTransforms = {
-    // format -> type string -> stirng remains string
-    'format': (v) => v,
-    // countBots -> type tinyint -> if v == 'true' or '1' result will be 1, else 0
-    'countBots': (v) => v.toLowerCase() == 'true' || v == '1' ? 1 : 0,
-};
 module.exports.run = async (msg, args, client) => {
     if (msg.channel.type == 'dm') {
         msg.channel.send(client.embeds.update.dm());
@@ -50,7 +44,7 @@ module.exports.run = async (msg, args, client) => {
                                         })
                                         .catch((err) => console.error("[ ERROR ] ", err));
                                 })
-                                break;
+                            break;
                             case '✏':
                                 if (!msg.member.hasPermission("ADMINISTRATOR")) {
                                     msg.channel.send(client.embeds.config.noAdmin());
@@ -65,9 +59,6 @@ module.exports.run = async (msg, args, client) => {
                                             let fMsg = msgs.first();
                                             if ((fMsg.content.includes("%all%") || fMsg.content.includes("%online%")) && !fMsg.content.includes("\"")) {
                                                 let cfgValue = fMsg.content;
-                                                // Transform config value by keys type transformation function.
-                                                cfgValue = stdConfigTypeTransforms["format"](cfgValue);
-                                                // Create object and set key and value to it.
                                                 let newCfg = {};
                                                 newCfg["format"] = cfgValue;
                                                 // Update guild config in database.
@@ -87,13 +78,15 @@ module.exports.run = async (msg, args, client) => {
                                             }
                                         }
                                     })
-                                break;
+                            break;
                             case '🤖':
                                 if (!msg.member.hasPermission("ADMINISTRATOR")) {
                                     msg.channel.send(client.embeds.config.noAdmin());
                                     return;
                                 }
-                                await cMsg.clearReactions();
+                                if (msg.guild.me.hasPermission("MANAGE_MESSAGES")) {
+                                    await cMsg.clearReactions();
+                                }
                                 cMsg.edit(client.embeds.config.botCount());
                                 await cMsg.react("✅");
                                 await cMsg.react("❎");
@@ -113,9 +106,7 @@ module.exports.run = async (msg, args, client) => {
                                                     msg.channel.send(client.embeds.config.botCountSet("yes"))
                                                 }).catch((err) => msg.channel.send(client.embeds.generalError('Error writing config data to database:', err)));
                                             } else {
-                                                let cfgValue = args.slice(1).join(' ');
-                                                // Transform config value by keys type transformation function.
-                                                cfgValue = 0;
+                                                let cfgValue = 0;
                                                 // Create object and set key and value to it.
                                                 let newCfg = {};
                                                 newCfg["countBots"] = cfgValue;
@@ -130,9 +121,10 @@ module.exports.run = async (msg, args, client) => {
                                                         .catch((err) => console.error("[ ERROR ] ", err));
                                                 }).catch((err) => msg.channel.send(client.embeds.generalError('Error writing config data to database:', err)));
                                             }
+                                            utils.setNickname(msg.guild, client);
                                         }
                                     })
-                                break;
+                            break;
                         }
                     }
                 })
