@@ -12,7 +12,7 @@ const client = new Discord.Client({
     fetchAllMembers: true
 });
 
-var debugMode = process.argv.includes('debug');
+const debugMode = process.argv.includes('debug');
 
 try {
     client.config = require('./config.json');
