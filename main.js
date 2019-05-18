@@ -5,6 +5,8 @@ const DBL = require("dblapi.js");
 const Sqlite = require('./db/sqlite');
 const Timeout = require('./extensions/timeout');
 
+const utils = require('./utils');
+
 const client = new Discord.Client({
     // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
     // this should be set to true to get always the right ammount of members
@@ -22,6 +24,10 @@ try {
     console.error('[ FATAL ] Failed parsing config.json: ', err);
     process.exit(1);
 }
+
+client.setInterval(function() {
+    utils.updateNicknameChanges(client);
+}, 180 * 1000);
 
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
