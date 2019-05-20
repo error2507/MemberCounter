@@ -27,7 +27,7 @@ try {
 
 client.setInterval(function() {
     utils.updateNicknameChanges(client);
-}, 180 * 1000);
+}, 30 * 60000);
 
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
