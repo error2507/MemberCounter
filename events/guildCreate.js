@@ -1,6 +1,29 @@
 const utils = require('../utils');
 
+const stdConfig = {
+    "format": "%all%",
+    "countBots": 1,
+};
+
+let success = false;
+
 module.exports.run = (newguild, client) => {
+    client.db.getGuildConfig(msg.guild)
+    .then(_guildConfig => {
+        let guildConfig = _guildConfig;
+
+        if (Object.keys(guildConfig).length == 0) {
+            guildConfig = stdConfig;
+            client.db.setGuildConfig(msg.guild, stdConfig)
+            .then(() => {
+                success = true;
+            })
+            .catch(() => {
+                success = false;
+            });
+        }
+    });
+    
     if (newguild.me.hasPermission("CHANGE_NICKNAME") || newguild.me.hasPermission("ADMINISTRATOR")) {
         utils.setNickname(newguild, client);
     } else {
@@ -11,6 +34,6 @@ module.exports.run = (newguild, client) => {
     // JOIN MESSAGE
     let memb = client.users.get("403269713368711190");
     if (memb)
-        memb.send(`I joined **${newguild.name}** with **${newguild.memberCount}** members.`)
+        memb.send(`I joined **${newguild.name}** with **${newguild.memberCount}** members. DB set: **${success}**`)
             .catch((err) => console.error("[ ERROR ] ", err));
 }

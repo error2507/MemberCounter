@@ -28,16 +28,11 @@ module.exports.run = (msg, args, client) => {
                 .then(() => client.db.getGuildConfig(msg.guild))
                 .then(_guildConfig => {
                     let guildConfig = _guildConfig;
-                    // Check which keys are set in the config. If a key's value
-                    // is 'null', it will be replaced with the standard value
-                    // defined above.
-                    Object.keys(stdConfig)
-                    .forEach((k) => {
-                        if(guildConfig[k] === null) guildConfig[k] = stdConfig[k];
-                    });
-                    // If guild has no config set, the default config
-                    // will be used as guild config.
-                    if(!guildConfig) guildConfig = stdConfig;
+
+                    if (Object.keys(guildConfig).length == 0) {
+                        guildConfig = stdConfig;
+                        client.db.setGuildConfig(msg.guild, stdConfig);
+                    }
                     // Edit cMsg (which was the menu before) to display current guild config
                     return cMsg.edit(client.embeds.config.list(guildConfig))
                     .then(() => {
@@ -61,14 +56,16 @@ module.exports.run = (msg, args, client) => {
                         const cfgValue = fMsg.content;
                         // Update guild config in database.
                         return client.db.setGuildConfig(msg.guild, { format: cfgValue })
-                        .then(() => msg.channel.send(client.embeds.config.formatSet(cfgValue)))
-                        .then(success => {
-                            msg.delete(30000);
-                            fMsg.delete(30000);
-                            cMsg.delete(30000);
-                            return success.delete(30000);
+                        .then(() => {
+                            msg.channel.send(client.embeds.config.formatSet(cfgValue))
+                            .then(success => {
+                                msg.delete(30000);
+                                fMsg.delete(30000);
+                                cMsg.delete(30000);
+                                return success.delete(30000);
+                            })
+                            utils.setNickname(msg.guild, client);
                         })
-                        .then(() => utils.setNickname(msg.guild, client))
                         .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
                     }
                     return msg.channel.send(client.embeds.config.incorrectFormat());
@@ -90,26 +87,34 @@ module.exports.run = (msg, args, client) => {
                 .then(r => {
                     if(r.size !== 1) return undefined;
                     if(r.first().emoji.name == "✅") {
-                        let cfgValue = args.slice(1)
-                        .join(" ");
-                        // Transform config value by keys type transformation function.
                         cfgValue = 1;
                         // Update guild config in database.
                         return client.db.setGuildConfig(msg.guild, { countBots: cfgValue })
-                        .then(() => msg.channel.send(client.embeds.config.botCountSet("yes")))
+                        .then(() => {
+                            msg.channel.send(client.embeds.config.botCountSet("yes"))
+                            .then((success) => {
+                                utils.setNickname(msg.guild, client);
+                                msg.delete(30000);
+                                cMsg.delete(30000);
+                                return success.delete(30000);
+                            });
+                        })
+                        .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
+                    } else {
+                        cfgValue = 0;
+                        // Update guild config in database.
+                        return client.db.setGuildConfig(msg.guild, { countBots: cfgValue })
+                        .then(() => {
+                            msg.channel.send(client.embeds.config.botCountSet("no"))
+                            .then((success) => {
+                                utils.setNickname(msg.guild, client);
+                                msg.delete(30000);
+                                cMsg.delete(30000);
+                                return success.delete(30000);
+                            });
+                        })
                         .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
                     }
-                    const cfgValue = 0;
-                    // Update guild config in database.
-                    return client.db.setGuildConfig(msg.guild, { countBots: cfgValue })
-                    .then(() => msg.channel.send(client.embeds.config.botCountSet("no")))
-                    .then(success => {
-                        msg.delete(30000);
-                        cMsg.delete(30000);
-                        return success.delete(30000);
-                    })
-                    .then(() => utils.setNickname(msg.guild, client))
-                    .catch(err => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
                 });
 
             default:
