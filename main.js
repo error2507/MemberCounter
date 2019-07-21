@@ -58,5 +58,3 @@ eventFiles.forEach(file => {
         });
     }
 });
-
-client.login(client.config.token);
