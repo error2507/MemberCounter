@@ -1,3 +1,4 @@
+let nicknameChanges = 0;
 module.exports = {
 
     getMemberCount(guild, client) {
@@ -28,10 +29,20 @@ module.exports = {
     	this.getMemberCount(guild, client).then((count) => {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
-                guild.me.setNickname(formated);
+                guild.me.setNickname(formated)
+                    .then(() => nicknameChanges++);
                 if (cb) cb(formated);
             });
         });
+    },
+
+    updateNicknameChanges(client) {
+        if (nicknameChanges > 0) {
+            let statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
+            let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
+            statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
+            nicknameChanges = 0;
+        }
     },
 
     encapsuleString(data) {

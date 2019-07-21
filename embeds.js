@@ -25,6 +25,15 @@ module.exports = {
         return embed;
     },
 
+    partner() {
+        let embed = new discord.RichEmbed()
+            .setColor(0x009FDF)
+            .setTitle('Partner')
+            .setImage('https://cdn.discordapp.com/attachments/468377584825139200/570312606640767016/Logo.png')
+            .setDescription('MemberCounter is hosted on a VPS by RareLoot.at \nRareLoot offers WebHosting, Linux Container and vServer at an affordable price.\n:point_right: **Check it out at https://www.rareloot.at/en/start/ **');
+        return embed;
+    },
+
     stats(random) {
         let embed = new discord.RichEmbed()
             .setColor(0x00bcd4)
