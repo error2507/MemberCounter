@@ -8,13 +8,13 @@ const stdConfig = {
 let success = false;
 
 module.exports.run = (newguild, client) => {
-    client.db.getGuildConfig(msg.guild)
+    client.db.getGuildConfig(newguild)
     .then(_guildConfig => {
         let guildConfig = _guildConfig;
 
         if (Object.keys(guildConfig).length == 0) {
             guildConfig = stdConfig;
-            client.db.setGuildConfig(msg.guild, stdConfig)
+            client.db.setGuildConfig(newguild, stdConfig)
             .then(() => {
                 success = true;
             })
