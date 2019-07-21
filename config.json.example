@@ -3,10 +3,12 @@
         "token":    "DEBUGTOKEN_HERE",
         "dblToken": "DBLTOKEN",
         "prefix":   "5",
-        "dbFile":   "membercounter.sqlite3.db"
+        "dbFile":   "membercounter.sqlite3.db",
+        "supportGuild":""
     },
     "token":    "TOKEN_HERE",
     "dblToken": "DBLTOKEN",
     "prefix":   "%",
-    "dbFile":   "membercounter.sqlite3.db"
+    "dbFile":   "membercounter.sqlite3.db",
+    "supportGuild":""
 }
