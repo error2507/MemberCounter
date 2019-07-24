@@ -29,7 +29,8 @@ module.exports = {
     	this.getMemberCount(guild, client).then((count) => {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
-                guild.me.setNickname(formated)
+                let guildMe = guild.fetchMember(client.user);
+                guildMe.setNickname(formated)
                     .then(() => nicknameChanges++);
                 if (cb) cb(formated);
             });

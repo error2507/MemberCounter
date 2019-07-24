@@ -1,7 +1,8 @@
 const utils = require('../utils');
 
 module.exports.run = (oldmember, client) => {
-    if (oldmember.guild.me.hasPermission("CHANGE_NICKNAME") || oldmember.guild.me.hasPermission("ADMINISTRATOR")) {
+    let guildMe = oldmember.guild.fetchMember(client.user);
+    if (guildMe.hasPermission("CHANGE_NICKNAME")) {
         utils.setNickname(oldmember.guild, client);
     }
 };
