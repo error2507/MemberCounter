@@ -15,7 +15,6 @@ const client = new Discord.Client({
 });
 
 const debugMode = process.argv.includes('debug');
-console.log(process.argv)
 
 try {
     client.config = require('./config.json');
