@@ -2,10 +2,10 @@
   "name": "membercount",
   "version": "1.0.0",
   "description": "",
-  "main": "main.js",
+  "main": "start.js",
   "scripts": {
-    "start": "node main.js",
-    "test": "node main.js debug"
+    "start": "node start.js",
+    "test": "node start.js debug"
   },
   "author": "error2507",
   "license": "GNU General Public License v3.0",
