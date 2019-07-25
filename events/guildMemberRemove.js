@@ -6,5 +6,5 @@ module.exports.run = (oldmember, client) => {
         if (guildMe.hasPermission("CHANGE_NICKNAME")) {
             utils.setNickname(newmember.guild, client);
         }
-    })
+    });
 };
