@@ -4,8 +4,10 @@ const stdConfig = {
     "countBots": 1,
 };
 
-module.exports.run = (msg, args, client) => {
+module.exports.run = async (msg, args, client) => {
     if(msg.channel.type == "dm") return msg.channel.send(client.embeds.update.dm());
+    let guildMe = await msg.guild.fetchMember(client.user);
+    if(!guildMe.hasPermission("ADD_REACTIONS")) return msg.channel.send(client.embeds.config.noAddReactionPerms());
     let cMsg;
     return msg.channel.send(client.embeds.config.chooseOption())
     .then(msg => {
