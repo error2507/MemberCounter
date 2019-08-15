@@ -45,7 +45,6 @@ commandFiles.forEach(file => {
     }
 });
 
-
 // Getting events from ./events/
 let eventFiles = fs.readdirSync('./events');
 eventFiles.forEach(file => {
@@ -58,3 +57,5 @@ eventFiles.forEach(file => {
         });
     }
 });
+
+client.login(client.config.token);

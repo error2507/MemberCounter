@@ -46,8 +46,9 @@ module.exports = {
     generalError(desc, err) {
         return new discord.RichEmbed()
             .setColor(0x4caf50)
-            .setTitle('Error')
-            .setFooter(desc + '```\n' + err + '\n```');
+            .setTitle('Error ' + desc)
+            .setDescription('```' + err + '```')
+            .setFooter('If you keep getting this error, please join my support server and tell the team about this problem. Thanks!');
     },
 
     update: {
@@ -124,7 +125,7 @@ module.exports = {
             return new discord.RichEmbed()
                 .setColor(0x00bcd4)
                 .setTitle("Enter your desired format")
-                .setDescription("Enter you desrired format. Use `%all%` for a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
+                .setDescription("Enter you desrired format. Use `%all%` as a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
         },
 
         incorrectFormat() {
@@ -152,8 +153,15 @@ module.exports = {
         noAdmin() {
             return new discord.RichEmbed()
                 .setColor(0xf44336)
-                .setTitle("Admin need!")
+                .setTitle("Admin needed!")
                 .setDescription("You need admin permissions to use this command.")
+        },
+
+        noAddReactionPerms() {
+            return new discord.RichEmbed()
+                .setColor(0x4caf50)
+                .setTitle("I don't have the permission to add reactions to messages!")
+                .setDescription("I can't add reactions to messages, please make sure that I have this permission in order to change my config.");
         }
     },
 };
