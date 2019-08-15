@@ -31,7 +31,6 @@ module.exports = {
                 let formated = this.formatCount(count, cfg.format);
                 guild.me.setNickname(formated, 'Bot by: https://github.com/error2507/MemberCounter')
                     .then(() => nicknameChanges++);
-                });
                 if (cb) cb(formated);
             });
         });
