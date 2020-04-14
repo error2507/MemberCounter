@@ -1,3 +1,5 @@
+![MemberCounter](https://raw.githubusercontent.com/error2507/MemberCounter/d.js-v12-update/images/5be0e8989adc15cb63c83a4ff25cecb6.png)
+
 # MemberCounter
 
 MemberCounter is a simple Discord Bot that shows the current amount of members on a guild as its nickname on this guild.
