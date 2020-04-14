@@ -6,7 +6,7 @@
         "dbFile":   "membercounter.sqlite3.db",
         "supportGuild":""
     },
-    "token":    "TOKEN_HERE",
+    "token":    "Discord_Token",
     "dblToken": "DBLTOKEN",
     "prefix":   "%",
     "dbFile":   "membercounter.sqlite3.db",

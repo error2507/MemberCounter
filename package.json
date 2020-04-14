@@ -12,7 +12,7 @@
   "dependencies": {
     "dblapi.js": "^2.3.0",
     "discord": "^0.8.2",
-    "discord.js": "^11.4.2",
+    "discord.js": "^12.1.1",
     "sqlite3": "^4.0.6"
   }
 }

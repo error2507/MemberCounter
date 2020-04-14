@@ -23,7 +23,7 @@ module.exports.run = (newguild, client) => {
             });
         }
     });
-    
+
     if (newguild.me.hasPermission("CHANGE_NICKNAME") || newguild.me.hasPermission("ADMINISTRATOR")) {
         utils.setNickname(newguild, client);
     } else {
@@ -32,7 +32,7 @@ module.exports.run = (newguild, client) => {
     }
 
     // JOIN MESSAGE
-    let memb = client.users.get("403269713368711190");
+    let memb = client.users.cache.get("403269713368711190");
     if (memb)
         memb.send(`I joined **${newguild.name}** with **${newguild.memberCount}** members. DB set: **${success}**`)
             .catch((err) => console.error("[ ERROR ] ", err));

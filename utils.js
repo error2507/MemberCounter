@@ -6,7 +6,7 @@ module.exports = {
             return 0;
         return new Promise((resolve, reject) => {
             client.db.getGuildConfig(guild).then((cfg) => {
-                let membs = guild.members.filter((m) => cfg.countBots || !m.user.bot);
+                let membs = guild.members.cache.filter((m) => cfg.countBots || !m.user.bot);
                 let all = membs.size;
                 let online = membs.filter((m) => m.presence.status != 'offline').size;
                 let offline = all - online;
@@ -29,7 +29,8 @@ module.exports = {
     	this.getMemberCount(guild, client).then((count) => {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
-                guild.fetchMember(client.user).then(guildMe => {
+
+                guild.members.fetch(client.user.id).then(guildMe => {
                     guildMe.setNickname(formated)
                     .then(() => nicknameChanges++);
                 });

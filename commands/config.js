@@ -6,8 +6,9 @@ const stdConfig = {
 
 module.exports.run = async (msg, args, client) => {
     if(msg.channel.type == "dm") return msg.channel.send(client.embeds.update.dm());
-    let guildMe = await msg.guild.fetchMember(client.user);
-    if(!guildMe.hasPermission("ADD_REACTIONS")) return msg.channel.send(client.embeds.config.noAddReactionPerms());
+    // let guildMe = await msg.guild.users.fetch(client.user);
+
+    if(!msg.guild.me.hasPermission("ADD_REACTIONS")) return msg.channel.send(client.embeds.config.noAddReactionPerms());
     let cMsg;
     return msg.channel.send(client.embeds.config.chooseOption())
     .then(msg => {
@@ -25,7 +26,7 @@ module.exports.run = async (msg, args, client) => {
         switch (reactions.first().emoji.name) {
             case "👁":
                 // Removing all reactions
-                return cMsg.clearReactions()
+                return cMsg.reactions.removeAll()
                 // Getting current guilds config from database.
                 .then(() => client.db.getGuildConfig(msg.guild))
                 .then(_guildConfig => {
@@ -38,14 +39,14 @@ module.exports.run = async (msg, args, client) => {
                     // Edit cMsg (which was the menu before) to display current guild config
                     return cMsg.edit(client.embeds.config.list(guildConfig))
                     .then(() => {
-                        cMsg.delete(30000);
-                        return msg.delete(30000);
+                        cMsg.delete({ timeout: 30000, reason: 'Time is up.' });
+                        return msg.delete({ timeout: 30000, reason: 'Time is up.' });
                     });
                 });
 
             case "✏":
                 if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.channel.send(client.embeds.config.noAdmin());
-                cMsg.clearReactions();
+                cMsg.reactions.removeAll();
                 cMsg.edit(client.embeds.config.enterFormat());
                 return msg.channel.awaitMessages(m => m.author.id == msg.author.id, {
                     max: 1,
@@ -61,10 +62,10 @@ module.exports.run = async (msg, args, client) => {
                         .then(() => {
                             msg.channel.send(client.embeds.config.formatSet(cfgValue))
                             .then(success => {
-                                msg.delete(30000);
-                                fMsg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
+                                msg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                fMsg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                cMsg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                return success.delete({ timeout: 30000, reason: 'Time is up.' });
                             })
                             utils.setNickname(msg.guild, client);
                         })
@@ -77,7 +78,7 @@ module.exports.run = async (msg, args, client) => {
                 if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.channel.send(client.embeds.config.noAdmin());
                 return cMsg.edit(client.embeds.config.botCount())
                 .then(() => {
-                    if(msg.guild.me.hasPermission("MANAGE_MESSAGES")) return cMsg.clearReactions();
+                    if(msg.guild.me.hasPermission("MANAGE_MESSAGES")) return cMsg.reactions.removeAll();
                     return undefined;
                 })
                 .then(() => cMsg.react("✅"))
@@ -96,9 +97,9 @@ module.exports.run = async (msg, args, client) => {
                             msg.channel.send(client.embeds.config.botCountSet("yes"))
                             .then((success) => {
                                 utils.setNickname(msg.guild, client);
-                                msg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
+                                msg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                cMsg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                return success.delete({ timeout: 30000, reason: 'Time is up.' });
                             });
                         })
                         .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
@@ -110,9 +111,9 @@ module.exports.run = async (msg, args, client) => {
                             msg.channel.send(client.embeds.config.botCountSet("no"))
                             .then((success) => {
                                 utils.setNickname(msg.guild, client);
-                                msg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
+                                msg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                cMsg.delete({ timeout: 30000, reason: 'Time is up.' });
+                                return success.delete({ timeout: 30000, reason: 'Time is up.' });
                             });
                         })
                         .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));

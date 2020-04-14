@@ -5,7 +5,10 @@ module.exports.run = (msg, args, client) => {
         msg.channel.send(client.embeds.update.dm())
             .then((err) => console.error("[ ERROR ] ", err));
     } else {
-        msg.guild.fetchMember(client.user).then((memb) => {
+
+         // msg.guild.users.cache.fetch(client.user.id).then((memb) => {
+          msg.guild.members.fetch(client.user.id).then((memb) => {
+
             let timeout = client.timeout.check('cmdupdate');
             if (timeout > 0) {
                 msg.channel.send(client.embeds.update.cooldown(timeout))
@@ -21,6 +24,6 @@ module.exports.run = (msg, args, client) => {
                         .catch((err) => console.error("[ ERROR ] ", err));
                 }
             }
-        });
+         });
     }
 };
