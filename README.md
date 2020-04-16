@@ -7,7 +7,7 @@
 </a>
 
 
-# MemberCounter
+# MemberCounter#0402
 
 MemberCounter is a simple Discord Bot that shows the current amount of members on a guild as its nickname on this guild.
 
