@@ -47,7 +47,8 @@ module.exports.run = async (msg, args, client) => {
             case "✏":
                 if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.channel.send(client.embeds.config.noAdmin());
                 cMsg.reactions.removeAll();
-                cMsg.edit(client.embeds.config.enterFormat());
+                const memberCount = msg.guild.memberCount;
+                cMsg.edit(client.embeds.config.enterFormat(memberCount));
                 return msg.channel.awaitMessages(m => m.author.id == msg.author.id, {
                     max: 1,
                     time: 60000

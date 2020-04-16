@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 
 module.exports.run = (msg, args, client) => {
-    if (msg.author.id == 403269713368711190) {
+    if (msg.author.id == 403269713368711190 || msg.author.id == 263022860551847936) {
         try{
             eval(args.join(" "));
         } catch(err) {
