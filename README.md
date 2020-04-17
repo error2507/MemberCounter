@@ -34,3 +34,14 @@ The best way to use it is to set MemberCounters role at top of all roles or at l
 * MemberCounters Invite: https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot
 * MemberCounters official support server: https://discord.gg/nGu44pF
 * Vote for MemberCounter on [top.gg](https://top.gg/bot/448845486515027970)
+
+## Privacy
+### Guild settings
+As kids, we’re all taught not to touch stuff that doesn’t belong to us. It’s a good guideline.
+
+But in order to make per-server settings possible we need to store a guild identifier. MemberCounter stores therefore the unique guild ID in a database. 
+Together with the guild ID we store your personal server settings (your format and botcount). That's it. Period.
+
+Unlike other bots we don’t collect or share your personal user information(e.g messages, ID, name). Ever. There’s literally no data about you on our servers. None. 
+
+We can’t profile you or share your data with others, simply because we don’t have any data to hand over. 

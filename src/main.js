@@ -7,6 +7,9 @@ const Timeout = require('./extensions/timeout');
 
 const utils = require('./utils');
 
+const { version } = require('./package.json');
+const cliProgress = require('cli-progress');
+
 const client = new Discord.Client({
     // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
     // this should be set to true to get always the right ammount of members
@@ -21,8 +24,7 @@ try {
     if (debugMode)
         client.config = client.config.debug;
 } catch (err) {
-    client.logger.fatal('', `Failed parsing config.json: ${err}`)
-    // console.error('[ FATAL ] Failed parsing config.json: ', err);
+    client.logger.fatal('', `Failed parsing config.json: ${err}`);
     process.exit(1);
 }
 
@@ -40,8 +42,8 @@ client.timeout = new Timeout()
 
 
 
-console.log('Starting MemberCounter#0402\nVersion: 1.0.0\nDevloper: ◢◤Myst◢◤#4217 and error2507#2022')
-const cliProgress = require('cli-progress')
+console.log(`Starting MemberCounter#0402\nVersion: ${version}\nDeveloper: ◢◤Myst◢◤#4217 and error2507#2022`)
+
 
 
 let b1 = new cliProgress.SingleBar({
