@@ -2,7 +2,8 @@ const { MessageEmbed } = require('discord.js');
 
 module.exports.run = (msg, args, client) => {
     const user = client.users.cache.get('403269713368711190');
-    msg.channel.send(client.embeds.help(user ? user.tag : "error2507", client.config.prefix));
+  //  msg.channel.send(client.embeds.help(user ? user.tag : "error2507", client.config.prefix));
+
     const prefix = client.config.prefix;
 
     const embed = new MessageEmbed()
@@ -16,7 +17,7 @@ module.exports.run = (msg, args, client) => {
         .setColor('#2980B9')
         .setTimestamp()
         .setFooter(`MemberCounter#0402 by error2507`);
-  // return msg.channel.send(embed);
+   return msg.channel.send(embed);
 
 
 };

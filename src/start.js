@@ -7,7 +7,8 @@ try {
     if (debugMode)
         args = ["debug"];
 } catch (err) {
-    console.error('[ FATAL ] Failed parsing config.json: ', err);
+    client.logger.fatal('', `Failed parsing config.json: ${err}`)
+    //console.error('[ FATAL ] Failed parsing config.json: ', err);
     process.exit(1);
 }
 

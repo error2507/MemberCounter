@@ -10,6 +10,10 @@
   "author": "error2507",
   "license": "GNU General Public License v3.0",
   "dependencies": {
+    "chalk": "^4.0.0",
+    "cli-progress": "^3.7.0",
+    "colors": "^1.4.0",
+    "dateformat": "^3.0.3",
     "dblapi.js": "^2.3.0",
     "discord": "^0.8.2",
     "discord.js": "^12.1.1",

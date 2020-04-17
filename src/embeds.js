@@ -10,8 +10,8 @@ module.exports = {
             .addField(prefix + 'invite', 'Shows the link to invite me to your server and the invite link to my support server.')
             .addField(prefix + 'stats', 'Shows my stats on discordbots.org.')
             .addField(prefix + 'config', 'Guild specific configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md).')
-              .setTimestamp()
-              .setFooter(`MemberCounter#0402 by error2507`);
+            .setTimestamp()
+            .setFooter(`MemberCounter#0402 by error2507`);
         return embed;
     },
 
@@ -31,7 +31,8 @@ module.exports = {
 
     partner() {
         let embed = new MessageEmbed()
-            .setColor(0x009FDF)
+            // .setColor(0x009FDF)
+            .setColor('#2980B9')
             .setTitle('Partner')
             .setImage('https://cdn.discordapp.com/attachments/468377584825139200/570312606640767016/Logo.png')
             .setDescription('MemberCounter is hosted on a VPS by RareLoot.at .\nRareLoot offers WebHosting, Linux Container and vServer at an affordable price.\n:point_right: **Check it out at https://www.rareloot.at/en/start/ **')
@@ -44,7 +45,7 @@ module.exports = {
         let embed = new MessageEmbed()
             // .setColor(0x00bcd4)
             .setTitle('Stats')
-            .setDescription('**Tip:** Support me by voting on [top.gg](https://top.gg/bot/448845486515027970).') //\nIf you believe my stats aren\'t correct, please try again.
+            .setDescription('**Tip:** Support me by voting on [top.gg](https://top.gg/bot/448845486515027970).')
             .setImage('https://discordbots.org/api/widget/448845486515027970.png?random=' + random)
             .setColor('#2980B9')
             .setTimestamp()
@@ -54,7 +55,8 @@ module.exports = {
 
     generalError(desc, err) {
         return new MessageEmbed()
-            .setColor(0x4caf50)
+            // .setColor(0x4caf50)
+            .setColor('RED')
             .setTitle('Error ' + desc)
             .setDescription('```' + err + '```')
             .setFooter('If this error persists, please join my support server and report this problem. Thanks!')
@@ -75,7 +77,8 @@ module.exports = {
 
         missingPerms() {
             let embed = new MessageEmbed()
-                .setColor(0xf44336)
+                //.setColor(0xf44336)
+                .setColor('RED')
                 .setTitle(':x: Missing permissions')
                 .setDescription('In order to work I need following permission: \`CHANGE_NICKNAME\` or \`ADMINISTRATOR\`')
                 .setTimestamp()
@@ -85,7 +88,8 @@ module.exports = {
 
         cooldown(time) {
             let embed = new MessageEmbed()
-                .setColor(0xf44336)
+                // .setColor(0xf44336)
+                .setColor('RED')
                 .setTitle(':x: Cooldown')
                 // .setDescription(`Please don\'t spam this command. You can use it again in \`${Math.floor(time / 1000)}\` seconds.`)
                 .setDescription(`Please wait for \`${Math.floor(time / 1000)}\` more second(s) before reusing the command.`)
@@ -96,7 +100,8 @@ module.exports = {
 
         dm() {
             let embed = new MessageEmbed()
-                .setColor(0xf44336)
+                // .setColor(0xf44336)
+                .setColor('RED')
                 .setDescription(':x: This command is unavailable via private message. Please run this command within a server.')
                 .setTimestamp()
                 .setFooter(`MemberCounter#0402 by error2507`);
@@ -107,7 +112,8 @@ module.exports = {
     config: {
         list(configData) {
             let embed =  new MessageEmbed()
-                .setColor(0x00bcd4)
+                // .setColor(0x00bcd4)
+                .setColor('#2980B9')
                 .setTitle('Current guild configuration')
                 .setTimestamp()
                 .setFooter(`MemberCounter#0402 by error2507`);
@@ -136,7 +142,8 @@ module.exports = {
 
         chooseOption() {
             return new MessageEmbed()
-                .setColor(0x00bcd4)
+                // .setColor(0x00bcd4)
+                .setColor('#2980B9')
                 .setTitle("Guild Configuration")
                 .setDescription("What do you want to do? React below with the given emoji!")
                 .addField("👁 See the current configuration", "You can see the current config on this server.")
@@ -148,7 +155,8 @@ module.exports = {
 
         enterFormat(memberCount) {
             return new MessageEmbed()
-                .setColor(0x00bcd4)
+                // .setColor(0x00bcd4)
+                .setColor('#2980B9')
                 .setTitle("Enter your desired format")
                 // .setDescription("Enter you desired format. Use `%all%` as a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.")
                 .setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %online% Members -> __${memberCount} Members__ as my nickname`)
@@ -158,7 +166,8 @@ module.exports = {
 
         incorrectFormat() {
             return new MessageEmbed()
-                .setColor(0xf44336)
+                // .setColor(0xf44336)
+                .setColor('RED')
                 .setTitle(":x: Your format is incorrect")
                 .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%`)")
                 .addField("Second option:", "You used a `\"` which is not allowed.")
@@ -168,9 +177,10 @@ module.exports = {
 
         botCount() {
             return new MessageEmbed()
-                .setColor(0x00bcd4)
+                // .setColor(0x00bcd4)
+                .setColor('#2980B9')
                 .setTitle("Should bots be counted?")
-                .setDescription("Should bots (including this one) be counted in %all%?\n✅: Yes, they should be counted.\n❎:No, they shouldn't be counted.")
+                .setDescription("Should bots (including this one) be counted in %all%?\n✅ **-** Yes, they should be counted.\n❎ **-**No, they shouldn't be counted.")
                 .setTimestamp()
                 .setFooter(`MemberCounter#0402 by error2507`);
         },
@@ -186,7 +196,8 @@ module.exports = {
 
         noAdmin() {
             return new MessageEmbed()
-                .setColor(0xf44336)
+                // .setColor(0xf44336)
+                .setColor('RED')
                 .setTitle("Missing Permissions")
                 .setDescription(":x: You need admin permissions to use this command.")
                 .setTimestamp()
@@ -195,7 +206,8 @@ module.exports = {
 
         noAddReactionPerms() {
             return new MessageEmbed()
-                .setColor(0x4caf50)
+              // .setColor(0x4caf50)
+                .setColor('RED')
                 .setTitle('Missing Permissions')
                 //.setTitle("I don't have the permission to add reactions to messages!")
                 .setDescription(":x: I can't add reactions to messages, please make sure that I have this permission in order to change my configuration.")
