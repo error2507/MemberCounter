@@ -33,12 +33,6 @@ module.exports = {
 		}
 		return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.red('  fatal  ') + '[' + module + ']' + ': ' + message);
 	},
-  loading(module, message) {
-		if(!module) {
-			return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.green('  loading  ') + ': ' + message);
-		}
-		return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.green('  loading ') + '[' + module + ']' + ': ' + message);
-	},
 	debug(module, message) {
 		if(!module) {
 			return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.green('  debug  ') + ': ' + message);

@@ -13,7 +13,6 @@ module.exports.run = (msg, args, client) => {
 
         .addField('Commands:', `:white_small_square:\`${prefix}config\` - Display/Edit the current guild configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md)\n\n:white_small_square:\`${prefix}update\` - Update my nickname manually.\n\n:white_small_square:\`${prefix}invite\` - Displays the invite link for me and my support server.\n\n:white_small_square:\`${prefix}stats\` - Displays my stats on top.gg.`)
 
-
         .setColor('#2980B9')
         .setTimestamp()
         .setFooter(`MemberCounter#0402 by error2507`);
