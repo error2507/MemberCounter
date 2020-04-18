@@ -25,37 +25,43 @@ try {
     process.exit(1);
 }
 
-client.setInterval(function() {
-    utils.updateNicknameChanges(client);
-}, 30 * 60000);
+function init() {
+    client.setInterval(function() {
+        utils.updateNicknameChanges(client);
+    }, 30 * 60000);
+    
+    client.embeds = require('./embeds.js');
+    client.dbl = new DBL(client.config.dblToken);
+    client.db = new Sqlite(client.config.dbFile);
+    client.timeout = new Timeout()
+        .register('cmdupdate', 30 * 1000, 1);
+    
+    // Getting commands from ./commands/
+    client.commands = new Map();
+    let commandFiles = fs.readdirSync('./commands');
+    commandFiles.forEach(file => {
+        if (file.endsWith('.js')) {
+            console.log("[ LOADING ] [ COMMAND ] " + file);
+            client.commands.set(file.split('.')[0], require(`./commands/${file}`));
+        }
+    });
+    
+    // Getting events from ./events/
+    let eventFiles = fs.readdirSync('./events');
+    eventFiles.forEach(file => {
+        if (file.endsWith('.js')) {
+            console.log("[ LOADING ] [ EVENT ] " + file);
+            let eventFunction = require(`./events/${file}`);
+            let eventName = file.split(".")[0];
+            client.on(eventName, (...args) => {
+                eventFunction.run(...args, client);
+            });
+        }
+    });
+}
 
-client.embeds = require('./embeds.js');
-client.dbl = new DBL(client.config.dblToken);
-client.db = new Sqlite(client.config.dbFile);
-client.timeout = new Timeout()
-    .register('cmdupdate', 30 * 1000, 1);
-
-// Getting commands from ./commands/
-client.commands = new Map();
-let commandFiles = fs.readdirSync('./commands');
-commandFiles.forEach(file => {
-    if (file.endsWith('.js')) {
-        console.log("[ LOADING ] [ COMMAND ] " + file);
-        client.commands.set(file.split('.')[0], require(`./commands/${file}`));
-    }
-});
-
-// Getting events from ./events/
-let eventFiles = fs.readdirSync('./events');
-eventFiles.forEach(file => {
-    if (file.endsWith('.js')) {
-        console.log("[ LOADING ] [ EVENT ] " + file);
-        let eventFunction = require(`./events/${file}`);
-        let eventName = file.split(".")[0];
-        client.on(eventName, (...args) => {
-            eventFunction.run(...args, client);
-        });
-    }
-});
+client.on('ready', () => {
+    init();
+})
 
 client.login(client.config.token);
