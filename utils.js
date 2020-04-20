@@ -53,6 +53,16 @@ module.exports = {
           //  let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
            // statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
            // nicknameChanges = 0;
+           client.shard.broadcastEval(`
+           const channel = this.guilds.cache.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
+           const statsChannel = client.guilds.cache.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
+            let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
+            let total = changedBefore + nicknameChanges;
+            statsChannel.setName('Nickname changes: '+ total)
+            nicknameChanges = 0;
+       `).then(console.log);
+
+
         }
     },
 
