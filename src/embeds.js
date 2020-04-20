@@ -157,7 +157,7 @@ module.exports = {
             return new MessageEmbed()
                 // .setColor(0x00bcd4)
                 .setColor('#2980B9')
-                .setTitle("Enter your desired format")
+                .setTitle("Modify Configuration")
                 // .setDescription("Enter you desired format. Use `%all%` as a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.")
                 .setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %online% Members -> __${memberCount} Members__ as my nickname`)
                 .setTimestamp()

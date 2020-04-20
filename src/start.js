@@ -8,13 +8,12 @@ try {
         args = ["debug"];
 } catch (err) {
     client.logger.fatal('', `Failed parsing config.json: ${err}`)
-    //console.error('[ FATAL ] Failed parsing config.json: ', err);
     process.exit(1);
 }
 
 const Manager = new ShardingManager('./main.js', {
     shardArgs: args,
-    totalShards: 'auto',
+    shards: 'auto',
     respawn: true,
     token: config.token,
 });
