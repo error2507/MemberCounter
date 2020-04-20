@@ -79,6 +79,7 @@ function init() {
 }
 
 client.on('ready', () => {
+    console.log('Ready!'),
     init();
 });
 
