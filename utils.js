@@ -41,13 +41,13 @@ module.exports = {
     updateNicknameChanges(client) {
         if (nicknameChanges > 0) {
 
-            client.shard.broadcastEval((client) => {
+            /*client.shard.broadcastEval((client) => {
             const statsChannel = client.guilds.cache.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
             let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
             statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`)
             nicknameChanges = 0;
 
-            })
+            })*/
             
            // let statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
           //  let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
