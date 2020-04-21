@@ -23,8 +23,6 @@ Manager.on('launch', (shard) => {
 });
 
 */
-const config = require('./config.json');
-const { ShardingManager } = require('discord.js');
 const manager = new ShardingManager('./main.js', { 
     shardArgs: ['--ansi', '--color', '--trace-warnings'],
     respawn: true,
