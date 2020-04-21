@@ -60,7 +60,9 @@ module.exports = {
             let total = changedBefore + nicknameChanges;
             statsChannel.setName('Nickname changes: '+ total)
             nicknameChanges = 0;
-       `).then(console.log);
+       `)
+       .then(console.log)
+       .catch(err => console.log(`Error while changing channel name:\n${err}`));
 
 
         }

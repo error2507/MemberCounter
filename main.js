@@ -28,6 +28,7 @@ try {
 }
 
 function init() {
+    client.updateNicknameChanges(client);
     client.setInterval(function() {
         utils.updateNicknameChanges(client);
     }, 30 * 60000);
