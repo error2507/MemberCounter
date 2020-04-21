@@ -24,7 +24,6 @@ Manager.on('launch', (shard) => {
 
 */
 const config = require('./config.json');
-const logger = require('./extensions/logger')
 const { ShardingManager } = require('discord.js');
 const manager = new ShardingManager('./main.js', { 
     shardArgs: ['--ansi', '--color', '--trace-warnings'],
@@ -44,6 +43,6 @@ manager.on('shardResume', shard => console.log(`[Shard-Manager] Shard[${shard.id
 
 manager.on('shardDisconnect', shard => {
     
-    console.log(`[Shard-Manager] Shard[${shard.id}] disconnected`)
+    console.log(`[Shard-Manager] Shard[${shard.id}] disconnected`);
     //manager.respawnAll()
 });
