@@ -28,11 +28,6 @@ try {
 }
 
 function init() {
-    utils.updateNicknameChanges(client);
-    client.setInterval(function() {
-        utils.updateNicknameChanges(client);
-    }, 30 * 60000);
-    
     client.embeds = require('./embeds.js');
     client.dbl = new DBL(client.config.dblToken);
     client.db = new Sqlite(client.config.dbFile);
@@ -79,10 +74,15 @@ function init() {
     }
     client.user.setActivity(client.config.prefix + 'help', { type: 'PLAYING' })
         .catch((err) => console.error("[ ERROR ] ", err));
+
+    utils.updateNicknameChanges(client);
+    client.setInterval(function() {
+        utils.updateNicknameChanges(client);
+    }, 30 * 60000);
 }
 
 client.on('ready', () => {
-    console.log('Ready!'),
+    console.log('Ready!');
     init();
 });
 
