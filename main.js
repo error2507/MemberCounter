@@ -7,6 +7,8 @@ const Timeout = require('./extensions/timeout');
 
 const utils = require('./utils');
 
+process.on('unhandledRejection', (error) => console.error('Uncaught Promise Rejection', error));
+
 const client = new Discord.Client({
     // According to https://github.com/discordjs/discord.js/blob/stable/src/util/Constants.js#L19
     // this should be set to true to get always the right ammount of members
