@@ -9,7 +9,7 @@ const manager = new ShardingManager('./main.js', {
 });
 
 manager.spawn();
-manager.on('shardCreate', shard => logger.info('Shard-Manager',`Launched shard ${shard.id}`));
+manager.on('shardCreate', shard => logger.warn('Shard-Manager',`Launched shard ${shard.id}`));
 
 manager.on('shardError', shard => logger.error('Shard-Manager',`Shard[${shard.id}]'s Websocket encountered a connection error.`));
 manager.on('shardReady', shard => logger.debug('Shard-Manager',`Shard[${shard.id}]'s is ready.`));

@@ -15,6 +15,12 @@ module.exports = {
 		}
 		return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.blue('  info  ') + '[' + module + ']' + ': ' + message);
 	},
+	warn(module, message) {
+		if(!module) {
+			return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.yellow('  warning  ') + ': ' + message);
+		}
+		return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.yellow('  warning  ') + '[' + module + ']' + ': ' + message);
+	},
 	error(module, message) {
 		if(!module) {
 			return console.log('[' + df(new Date(), 'HH:MM:ss') + ']' + chalk.red('  error  ') + ': ' + message);
