@@ -87,3 +87,10 @@ client.on('ready', () => {
 });
 
 client.login(client.config.token);
+
+// Workaround for making the client ready if a guild is unavailable
+// https://github.com/discordjs/discord.js/issues/3956
+
+setTimeout(() => {
+    client.ws.connection.triggerReady();
+}, 30000);
