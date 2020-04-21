@@ -65,6 +65,8 @@ module.exports = {
        .catch(err => console.log(`Error while changing channel name:\n${err}`));
 
 
+        } else {
+            return;
         }
     },
 
