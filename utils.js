@@ -39,6 +39,7 @@ module.exports = {
     },
 
     updateNicknameChanges(client) {
+        console.log(client)
         if (nicknameChanges > 0) {
 
             /*client.shard.broadcastEval((client) => {
@@ -49,22 +50,20 @@ module.exports = {
 
             })*/
             
-           // let statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
-          //  let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
-           // statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
-           // nicknameChanges = 0;
-           client.shard.broadcastEval(`
-           let channel = this.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
-           let statsChannel = this.guilds.get(${client.config.supportGuild}).channels.find(c => c.name.startsWith("Nickname changes:"));
-            let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
-            let total = changedBefore + nicknameChanges;
-            statsChannel.setName('Nickname changes: '+ total)
-            nicknameChanges = 0;
-       `)
-       .then(console.log)
-       .catch(err => console.log(`Error while changing channel name:\n${err}`));
-
-
+            // let statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
+            //  let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
+            // statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
+            // nicknameChanges = 0;
+            client.shard.broadcastEval(`
+            let channel = this.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
+            let statsChannel = this.guilds.get(${client.config.supportGuild}).channels.find(c => c.name.startsWith("Nickname changes:"));
+                let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
+                let total = changedBefore + nicknameChanges;
+                statsChannel.setName('Nickname changes: '+ total)
+                nicknameChanges = 0;
+            `)
+            .then(console.log)
+            .catch(err => console.log(`Error while changing channel name:\n${err}`));
         } else {
             return;
         }
