@@ -9,10 +9,10 @@
 
 # MemberCounter#0402
 
-MemberCounter is a simple Discord Bot that shows the current amount of members on a guild as its nickname on this guild.
+MemberCounter is a simple Discord Bot that shows the current amount of members of a guild as its nickname.
 
 ## Best way to use it
-The best way to use it is to set MemberCounters role at top of all roles or at least over the Member role or whatever you have. Then set it as hoisted and you will instantly see how many members your server has.
+The best way to use it is to place MemberCounters role at top of all roles or at least over the Member role or whatever role you have. Then set it as hoisted and you will instantly see how many members your server has.
 
 ## Commands
 * `%help`: Displays all avaible commands and instructions for the setup of MemberCounter.
