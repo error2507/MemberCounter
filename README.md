@@ -27,8 +27,8 @@ The best way to use it is to set MemberCounters role at top of all roles or at l
 
 | Key | Type | Example | Description |
 |-----|------|---------|-------------|
-| `format` | string | `%all% (online: %online%)` | Format the count will be displayed in the nickname:<br>`%all%` - all members count<br>`%online%` - online members count<br>`%offline%` - offline members count |
-| `countBots` | bool | `true` | True -> bots will be counted. |
+| `format` | string | `%all%` | Format the count which will be displayed in the nickname:<br>`%all%` - Counts all members<br>`%online%` - Counts the online members<br>`%offline%` - Counts the offline members |
+| `countBots` | boolean | `true` | True -> Bots will be counted. |
 
 ## Links
 * MemberCounters Invite: https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot
