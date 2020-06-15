@@ -11,7 +11,6 @@
   "license": "GNU General Public License v3.0",
   "dependencies": {
     "chalk": "^4.1.0",
-    "cli-progress": "^3.7.0",
     "colors": "^1.4.0",
     "dateformat": "^3.0.3",
     "dblapi.js": "^2.3.0",
