@@ -15,7 +15,7 @@ module.exports.run = (msg, args, client) => {
 
         .setColor('#2980B9')
         .setTimestamp()
-        .setFooter(`MemberCounter#0402 by error2507`);
+        .setFooter(`MemberCounter#0402`);
    return msg.channel.send(embed);
 
 

@@ -11,7 +11,7 @@ module.exports = {
             .addField(prefix + 'stats', 'Shows my stats on discordbots.org.')
             .addField(prefix + 'config', 'Guild specific configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md).')
             .setTimestamp()
-            .setFooter(`MemberCounter#0402 by error2507`);
+            .setFooter(`MemberCounter#0402`);
         return embed;
     },
 
@@ -25,7 +25,7 @@ module.exports = {
             .addField('Open Source', 'I am OSS at [https://github.com/error2507/MemberCounter](https://github.com/error2507/MemberCounter)')
             .setDescription('[Invite Bot](https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot) - [Support Server](https://discord.gg/nGu44pF) - [Vote](https://discordbots.org/bot/448845486515027970)')
               .setTimestamp()
-            .setFooter(`MemberCounter#0402 by error2507`);
+            .setFooter(`MemberCounter#0402`);
         return embed;
     },
 
@@ -37,7 +37,7 @@ module.exports = {
             .setImage('https://cdn.discordapp.com/attachments/468377584825139200/570312606640767016/Logo.png')
             .setDescription('MemberCounter is hosted on a VPS by RareLoot.at .\nRareLoot offers WebHosting, Linux Container and vServer at an affordable price.\n:point_right: **Check it out at https://www.rareloot.at/en/start/ **')
             .setTimestamp()
-            .setFooter(`MemberCounter#0402 by error2507`);
+            .setFooter(`MemberCounter#0402`);
         return embed;
     },
 
@@ -49,7 +49,7 @@ module.exports = {
             .setImage('https://discordbots.org/api/widget/448845486515027970.png?random=' + random)
             .setColor('#2980B9')
             .setTimestamp()
-            .setFooter(`MemberCounter#0402 by error2507`);
+            .setFooter(`MemberCounter#0402`);
         return embed;
     },
 
@@ -61,7 +61,7 @@ module.exports = {
             .setDescription('```' + err + '```')
             .setFooter('If this error persists, please join my support server and report this problem. Thanks!')
             .setTimestamp()
-            .setFooter(`MemberCounter#0402 by error2507`);
+            .setFooter(`MemberCounter#0402`);
     },
 
     update: {
@@ -71,7 +71,7 @@ module.exports = {
                 //.setTitle('Success')
                 .setDescription(`✅ I successfully changed my nickname to \`${membercount}\`.`)
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
             return embed;
         },
 
@@ -82,7 +82,7 @@ module.exports = {
                 .setTitle(':x: Missing permissions')
                 .setDescription('In order to work I need following permission: \`CHANGE_NICKNAME\` or \`ADMINISTRATOR\`')
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
             return embed;
         },
 
@@ -94,7 +94,7 @@ module.exports = {
                 // .setDescription(`Please don\'t spam this command. You can use it again in \`${Math.floor(time / 1000)}\` seconds.`)
                 .setDescription(`Please wait for \`${Math.floor(time / 1000)}\` more second(s) before reusing the command.`)
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
             return embed;
         },
 
@@ -104,7 +104,7 @@ module.exports = {
                 .setColor('RED')
                 .setDescription(':x: This command is unavailable via private message. Please run this command within a server.')
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
             return embed;
         }
     },
@@ -116,14 +116,14 @@ module.exports = {
                 .setColor('#2980B9')
                 .setTitle('Current guild configuration')
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
             Object.keys(configData).forEach(k => {
                 switch (k) {
                     case "format":
-                        embed.addField("Format", configData[k]);
+                        embed.addField(":white_small_square: Format", configData[k]);
                         break;
                     case "countBots":
-                        embed.addField("Are bots counted?", (configData[k] == 0 ? "No" : "Yes"));
+                        embed.addField(":white_small_square: Are bots counted?", (configData[k] == 0 ? "No" : "Yes"));
                         break;
                 }
 
@@ -137,7 +137,7 @@ module.exports = {
                 .setTitle('Format set')
                 .setDescription(`✅ Format set to \`${value}\`.`)
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         chooseOption() {
@@ -150,7 +150,7 @@ module.exports = {
                 .addField("✏ Edit the format of the nickname", "You can edit how the bot displays the members.")
                 .addField("🤖 Decide whether bots should be counted", "You can decide whether bots should be counted or just members.")
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         enterFormat(memberCount) {
@@ -158,10 +158,9 @@ module.exports = {
                 // .setColor(0x00bcd4)
                 .setColor('#2980B9')
                 .setTitle("Modify Configuration")
-                // .setDescription("Enter you desired format. Use `%all%` as a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.")
                 .setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %online% Members -> __${memberCount} Members__ as my nickname`)
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         incorrectFormat() {
@@ -172,7 +171,7 @@ module.exports = {
                 .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%`)")
                 .addField("Second option:", "You used a `\"` which is not allowed.")
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         botCount() {
@@ -182,7 +181,7 @@ module.exports = {
                 .setTitle("Should bots be counted?")
                 .setDescription("Should bots (including this one) be counted in %all%?\n✅ **-** Yes, they should be counted.\n❎ **-**No, they shouldn't be counted.")
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         botCountSet(value) {
@@ -191,7 +190,7 @@ module.exports = {
                 // .setTitle('Format set')
                 .setDescription(`✅ Botcount set to \`${value}\`.`)
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         noAdmin() {
@@ -201,7 +200,7 @@ module.exports = {
                 .setTitle("Missing Permissions")
                 .setDescription(":x: You need admin permissions to use this command.")
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         },
 
         noAddReactionPerms() {
@@ -212,7 +211,7 @@ module.exports = {
                 //.setTitle("I don't have the permission to add reactions to messages!")
                 .setDescription(":x: I can't add reactions to messages, please make sure that I have this permission in order to change my configuration.")
                 .setTimestamp()
-                .setFooter(`MemberCounter#0402 by error2507`);
+                .setFooter(`MemberCounter#0402`);
         }
     },
 };
