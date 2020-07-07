@@ -10,7 +10,43 @@ process.on('unhandledRejection', error => {
 	client.logger.error('', 'Unhandled promise rejection:', error);
 });
 
-const client = new Discord.Client({ fetchAllMembers: true });
+const client = new Discord.Client({
+	fetchAllMembers: true,
+	ws: {
+		Intents: ['MESSAGE_CREATE', 'MESSAGE_UPDATE', 'GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_REACTIONS'],
+	},
+	disabledEvents: [
+		'GUILD_MEMBER_ADD',
+		'GUILD_MEMBER_REMOVE',
+		'GUILD_MEMBER_UPDATE',
+		'GUILD_MEMBERS_CHUNK',
+		'GUILD_INTEGRATIONS_UPDATE',
+		'GUILD_ROLE_CREATE',
+		'GUILD_ROLE_DELETE',
+		'GUILD_ROLE_UPDATE',
+		'GUILD_BAN_ADD',
+		'GUILD_BAN_REMOVE',
+		'GUILD_EMOJIS_UPDATE',
+		'CHANNEL_PINS_UPDATE',
+		'CHANNEL_CREATE',
+		'CHANNEL_DELETE',
+		'CHANNEL_UPDATE',
+		'MESSAGE_DELETE',
+		'MESSAGE_DELETE_BULK',
+		'MESSAGE_REACTION_REMOVE',
+		'MESSAGE_REACTION_REMOVE_ALL',
+		'MESSAGE_REACTION_REMOVE_EMOJI',
+		'USER_UPDATE',
+		'USER_SETTINGS_UPDATE',
+		'PRESENCE_UPDATE',
+		'TYPING_START',
+		'VOICE_STATE_UPDATE',
+		'VOICE_SERVER_UPDATE',
+		'INVITE_CREATE',
+		'INVITE_DELETE',
+		'WEBHOOKS_UPDATE',
+	],
+});
 
 const debugMode = process.argv.includes('debug');
 
