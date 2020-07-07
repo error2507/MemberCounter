@@ -1,6 +1,7 @@
-module.exports.run = (client) => {
+module.exports.run = () => {
+// module.exports.run = (client) => {
 
-   /* Does not run due to init() in main.js
+	/* Does not run due to init() in main.js
 
     if (client.config.dblToken && client.config.dblToken != '') {
         client.shard.fetchClientValues('guilds.cache.size')

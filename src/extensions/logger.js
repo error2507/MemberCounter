@@ -1,7 +1,7 @@
 const chalk = require('chalk');
 const df = require('dateformat');
 
- /**
+/**
   * Register new logger.
   * @param {string} module     Name of the module.
   * @param {string} message    Message to log.
