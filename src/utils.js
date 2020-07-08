@@ -39,7 +39,7 @@ module.exports = {
 
 	updateNicknameChanges(client) {
 		if (nicknameChanges > 0) {
-			const statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith('Nickname changes:'));
+			const statsChannel = client.guilds.cache.get(client.config.supportGuild).channels.cache.find(c => c.name.startsWith('Nickname changes:'));
 			const changedBefore = parseInt(statsChannel.name.split(': ').slice(1), 10);
 			statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
 			nicknameChanges = 0;

@@ -1,3 +1,4 @@
+/* eslint-disable no-irregular-whitespace */
 const utils = require('../utils');
 const stdConfig = {
 	'format': '%all%',

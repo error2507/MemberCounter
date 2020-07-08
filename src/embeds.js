@@ -120,10 +120,10 @@ module.exports = {
 			Object.keys(configData).forEach(k => {
 				switch (k) {
 				case 'format':
-					embed.addField(':white_small_square: Format', configData[k]);
+					embed.addField(':white_small_square: Format', `\`${configData[k]}\``);
 					break;
 				case 'countBots':
-					embed.addField(':white_small_square: Are bots counted?', (configData[k] == 0 ? 'No' : 'Yes'));
+					embed.addField(':white_small_square: Are bots counted?', `\`${(configData[k] == 0 ? 'No' : 'Yes')}\``);
 					break;
 				}
 
@@ -158,7 +158,7 @@ module.exports = {
 			// .setColor(0x00bcd4)
 				.setColor('#2980B9')
 				.setTitle('Modify Configuration')
-				.setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %online% Members -> __${memberCount} Members__ as my nickname`)
+				.setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %all% Members -> __${memberCount} Members__ as my nickname`)
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
 		},
