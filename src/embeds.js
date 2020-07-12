@@ -19,9 +19,6 @@ module.exports = {
 		const embed = new MessageEmbed()
 			.setColor(0x3f51b5)
 			.setTitle('Invite Links')
-		//  .addField('Invite me to your server (Please make sure I get all the permissions I need)', 'https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot')
-		// .addField('My support server', 'https://discord.gg/nGu44pF')
-		//  .addField('Vote for me on discordbots.org', 'https://discordbots.org/bot/448845486515027970')
 			.addField('Open Source', 'I am OSS at [https://github.com/error2507/MemberCounter](https://github.com/error2507/MemberCounter)')
 			.setDescription('[Invite Bot](https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot) - [Support Server](https://discord.gg/nGu44pF) - [Vote](https://discordbots.org/bot/448845486515027970)')
 			.setTimestamp()
@@ -91,7 +88,6 @@ module.exports = {
 			// .setColor(0xf44336)
 				.setColor('RED')
 				.setTitle(':x: Cooldown')
-			// .setDescription(`Please don\'t spam this command. You can use it again in \`${Math.floor(time / 1000)}\` seconds.`)
 				.setDescription(`Please wait for \`${Math.floor(time / 1000)}\` more second(s) before reusing the command.`)
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
@@ -208,8 +204,7 @@ module.exports = {
 			// .setColor(0x4caf50)
 				.setColor('RED')
 				.setTitle('Missing Permissions')
-			// .setTitle("I don't have the permission to add reactions to messages!")
-				.setDescription(':x: I can\'t add reactions to messages, please make sure that I have this permission in order to change my configuration.')
+				.setDescription(':x: I can\'t add reactions to the messages, please make sure that I have this permission in order to change my configuration.')
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
 		},

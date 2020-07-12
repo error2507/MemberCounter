@@ -22,10 +22,10 @@ module.exports = class TimeoutHandler {
      * @returns Instance of TimeoutHandler.
      */
 	register(name, timeout, afterN) {
-		if (typeof name !== 'string') {throw Error('name must be stirng');}
-		if (typeof timeout !== 'number') {throw Error('timeout must be number');}
-		if (afterN && typeof afterN !== 'number') {throw Error('afterN must be number');}
-		if (!afterN) {afterN = 1;}
+		if (typeof name !== 'string') { throw Error('Name must be string'); }
+		if (typeof timeout !== 'number') { throw Error('Timeout must be number'); }
+		if (afterN && typeof afterN !== 'number') {throw Error('afterN must be number'); }
+		if (!afterN) { afterN = 1; }
 		this.registeredTimeouts[name] = new Handler(name, timeout, afterN);
 		return this;
 	}

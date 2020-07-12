@@ -6,10 +6,6 @@ const Timeout = require('./extensions/timeout');
 const utils = require('./utils');
 const { version } = require('./package.json');
 
-process.on('unhandledRejection', error => {
-	client.logger.error('', 'Unhandled promise rejection:', error);
-});
-
 const client = new Discord.Client({
 	fetchAllMembers: true,
 	ws: {
@@ -76,8 +72,6 @@ function init() {
 	client.timeout = new Timeout()
 		.register('cmdupdate', 30 * 1000, 1);
 
-
-	// console.log(`Version: ${version}\nDeveloper: ◢◤Myst◢◤#4217 and error2507#2022`)
 	client.logger.info('', `MemberCounter#0402 v${version}`);
 
 	// Getting commands from ./commands/
@@ -123,11 +117,16 @@ client.on('ready', () => {
 				});
 		}, 300000);
 
+		const dbl = new DBL(client.config.dblToken, { webhookPort: 5000, webhookAuth: 'password' });
+		dbl.webhook.on('ready', hook => {
+			console.log(`Webhook running at http://${hook.hostname}:${hook.port}${hook.path}`);
+		});
+		dbl.webhook.on('vote', vote => {
+			console.log(`User with ID ${vote.user} just voted!`);
+		});
+
 	}
 
 });
-/*
-client.on('debug', (message) => {
-    console.log(message)
-});*/
+
 client.login(client.config.token);

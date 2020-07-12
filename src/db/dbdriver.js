@@ -5,26 +5,26 @@
  */
 module.exports = class DBDriver {
 
-    /**
+	/**
      * You should use the constructor to open or connect
      * to the database and pass the settings and credentials.
      * @abstract
      * @constructor
      */
-    constructor() {}
+	constructor() {}
 
-    /**
+	/**
      * Returns guild config
      * @abstract
      * @param {(Object|string)} guild Guild as object or guilds ID
-     * @returns {Promise<GuildConfig, Error>} Promise passing guild config containing 'format' (string) 
+     * @returns {Promise<GuildConfig, Error>} Promise passing guild config containing 'format' (string)
      *                                        and 'countBots' (bool) on pass
      */
-    getGuildConfig(guild) {
-        throw Error('getGuildConfig() must be implemented');
-    }
+	getGuildConfig(guild) {
+		throw Error('getGuildConfig() must be implemented');
+	}
 
-    /**
+	/**
      * Sets guilds config
      * @abstract
      * @param {(Object|string)} guild              Guild as object or guilds ID
@@ -33,8 +33,8 @@ module.exports = class DBDriver {
      * @param {bool}            [config.countBots] countBots
      * @returns {Promise<void, Error>} Promise
      */
-    setGuildConfig(guild, config) {
-        throw Error('setGuildConfig() must be implemented');
-    }
+	setGuildConfig(guild, config) {
+		throw Error('setGuildConfig() must be implemented');
+	}
 
 };
