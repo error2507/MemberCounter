@@ -67,6 +67,7 @@ function init() {
 	client.logger = require('./extensions/logger.js');
 
 	client.embeds = require('./embeds.js');
+	client.embed = require('./extensions/embed');
 	client.dbl = new DBL(client.config.dblToken);
 	client.db = new Sqlite(client.config.dbFile);
 	client.timeout = new Timeout()
