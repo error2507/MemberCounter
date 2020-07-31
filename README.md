@@ -25,6 +25,10 @@ The best way to use it is to place MemberCounters role at top of all roles or at
 
 This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/error2507/MemberCounter/blob/d.js-v12-update/LICENSE) file for details.
 
+## Self Hosting
+
+Self hosting Ear Tensifier is not supported and no help will be provided. I am not responsible or liable for any self hosted clones of Ear Tensifier.
+
 ## Guild Specific Configuration
 
 | Key | Type | Example | Description |
