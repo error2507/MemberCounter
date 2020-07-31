@@ -21,7 +21,9 @@ The best way to use it is to place MemberCounters role at top of all roles or at
 * `%invite`: Displays the invite link for me and my support server.
 * `%stats`: Displays my stats on top.gg.
 
+## License
 
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](https://github.com/error2507/MemberCounter/blob/d.js-v12-update/LICENSE) file for details.
 
 ## Guild Specific Configuration
 
