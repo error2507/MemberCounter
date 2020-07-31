@@ -27,7 +27,7 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## Self Hosting
 
-Self hosting Ear Tensifier is not supported and no help will be provided. I am not responsible or liable for any self hosted clones of Ear Tensifier.
+Self hosting MemberCounter is not supported and no help will be provided. I am not responsible or liable for any self hosted clones of MemberCounter.
 
 ## Guild Specific Configuration
 
