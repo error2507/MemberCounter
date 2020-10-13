@@ -23,7 +23,7 @@ module.exports.run = (client, msg) => {
 			}
 			else {
 				msg.channel.send(client.embeds.update.missingPerms())
-					.catch((err) => client.logger.error('Update', err));
+					.catch((err) => client.logger.error('Update.js', err));
 			}
 		});
 	}

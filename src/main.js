@@ -4,16 +4,13 @@ const DBL = require('dblapi.js');
 const Sqlite = require('./db/sqlite');
 const Timeout = require('./extensions/timeout');
 const utils = require('./utils');
-const { version } = require('./package.json');
 
 const client = new Discord.Client({
 	fetchAllMembers: true,
 	ws: {
-		Intents: ['MESSAGE_CREATE', 'MESSAGE_UPDATE', 'GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_REACTIONS'],
+		Intents: ['MESSAGE_CREATE', 'MESSAGE_UPDATE', 'GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MEMBER_ADD', 'GUILD_MEMBER_REMOVE',],
 	},
 	disabledEvents: [
-		'GUILD_MEMBER_ADD',
-		'GUILD_MEMBER_REMOVE',
 		'GUILD_MEMBER_UPDATE',
 		'GUILD_MEMBERS_CHUNK',
 		'GUILD_INTEGRATIONS_UPDATE',
@@ -54,11 +51,12 @@ catch (err) {
 	client.logger.fatal('', `Failed parsing config.json: ${err}`);
 	process.exit(1);
 }
+/*
 client.on('debug', (message) => {
 	// Save this message somewhere
 	console.log(message);
 });
-
+*/
 function init() {
 	client.setInterval(function() {
 		utils.updateNicknameChanges(client);
@@ -73,14 +71,12 @@ function init() {
 	client.timeout = new Timeout()
 		.register('cmdupdate', 30 * 1000, 1);
 
-	client.logger.info('', `MemberCounter#0402 v${version}`);
-
 	// Getting commands from ./commands/
 	client.commands = new Map();
 	const commandFiles = fs.readdirSync('./commands');
 	commandFiles.forEach(file => {
 		if (file.endsWith('.js')) {
-			// client.logger.debug('', `Loading command ${file}`)
+			 client.logger.debug('', `Loading command ${file}`)
 			client.commands.set(file.split('.')[0], require(`./commands/${file}`));
 		}
 	});
@@ -88,7 +84,7 @@ function init() {
 	const eventFiles = fs.readdirSync('./events');
 	eventFiles.forEach(file => {
 		if (file.endsWith('.js')) {
-			// client.logger.loading('', `Loading event ${file}`)
+			 client.logger.debug('', `Loading event ${file}`)
 			const eventFunction = require(`./events/${file}`);
 			const eventName = file.split('.')[0];
 			client.on(eventName, (...args) => {
