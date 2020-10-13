@@ -1,3 +1,3 @@
-module.exports.run = (msg, args, client) => {
+module.exports.run = (client, msg) => {
 	msg.channel.send(client.embeds.partner());
 };

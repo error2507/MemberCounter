@@ -1,6 +1,6 @@
 const { MessageEmbed } = require('discord.js');
 
-module.exports.run = (msg, args, client) => {
+module.exports.run = (client, msg) => {
 	// user = client.users.cache.get('403269713368711190');
 	//  msg.channel.send(client.embeds.help(user ? user.tag : "error2507", client.config.prefix));
 

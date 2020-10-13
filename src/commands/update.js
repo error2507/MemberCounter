@@ -1,6 +1,6 @@
 const utils = require('../utils');
 
-module.exports.run = (msg, args, client) => {
+module.exports.run = (client, msg) => {
 	if (msg.channel.type == 'dm') {
 		msg.channel.send(client.embeds.update.dm())
 			.then((err) => console.error('[ ERROR ] ', err));
