@@ -1,3 +1,6 @@
+
+Reference for error2507: https://discordjs.guide/popular-topics/intents.html
+
 # Don't use this branch for self-hosting! Use the master branch. This here is in an early stage of development -> not tested. 
 <p align="center">
   <img width="460" height="300" src="https://raw.githubusercontent.com/error2507/MemberCounter/d.js-v12-update/images/5be0e8989adc15cb63c83a4ff25cecb6.png">
