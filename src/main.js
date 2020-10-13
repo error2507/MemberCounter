@@ -42,9 +42,9 @@ const client = new Discord.Client({
 });
 
 const debugMode = process.argv.includes('debug');
-
+client.config = require('./config.json');
 try {
-	client.config = require('./config.json');
+	
 	if (debugMode) {client.config = client.config.debug;}
 }
 catch (err) {
