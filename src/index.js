@@ -1,3 +1,5 @@
+
+/* DON'T USE THAT
 const config = require('./config.json');
 const logger = require('./extensions/logger');
 const { ShardingManager } = require('discord.js');
@@ -22,4 +24,4 @@ manager.on('shardDisconnect', shard => {
 	logger.error('Shard-Manager', `Shard[${shard.id}] disconnected`);
 	// manager.respawnAll()
 });
-
+*/

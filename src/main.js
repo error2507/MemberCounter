@@ -7,6 +7,10 @@ const utils = require('./utils');
 
 const client = new Discord.Client({
 	fetchAllMembers: true,
+	disableMentions: 'everyone',
+	messageCacheMaxSize: 50,
+	messageCacheLifetime: 60,
+	messageSweepInterval: 120,
 	ws: {
 		Intents: ['MESSAGE_CREATE', 'MESSAGE_UPDATE', 'GUILDS', 'GUILD_MESSAGES', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MESSAGE_REACTIONS', 'GUILD_MEMBER_ADD', 'GUILD_MEMBER_REMOVE',],
 	},
@@ -57,6 +61,43 @@ client.on('debug', (message) => {
 	console.log(message);
 });
 */
+
+	client.setInterval(function() {
+		utils.updateNicknameChanges(client);
+	}, 30 * 60000);
+
+	client.logger = require('./extensions/logger.js');
+
+	client.embeds = require('./embeds.js');
+	client.embed = require('./extensions/embed');
+	client.dbl = new DBL(client.config.dblToken);
+	client.db = new Sqlite(client.config.dbFile);
+	client.timeout = new Timeout()
+		.register('cmdupdate', 30 * 1000, 1);
+
+	// Getting commands from ./commands/
+	client.commands = new Map();
+	const commandFiles = fs.readdirSync('./commands');
+	commandFiles.forEach(file => {
+		if (file.endsWith('.js')) {
+			// client.logger.debug('', `Loading command ${file}`)
+			client.commands.set(file.split('.')[0], require(`./commands/${file}`));
+		}
+	});
+	// Getting events from ./events/
+	const eventFiles = fs.readdirSync('./events');
+	eventFiles.forEach(file => {
+		if (file.endsWith('.js')) {
+			// client.logger.debug('', `Loading event ${file}`)
+			const eventFunction = require(`./events/${file}`);
+			const eventName = file.split('.')[0];
+			client.on(eventName, (...args) => {
+				eventFunction.run(...args, client);
+			});
+		}
+	});
+
+/*
 function init() {
 	client.setInterval(function() {
 		utils.updateNicknameChanges(client);
@@ -93,8 +134,8 @@ function init() {
 		}
 	});
 
-}
-client.on('ready', () => {
+} */
+/*client.on('ready', () => {
 	init();
 
 	client.user.setActivity(client.config.prefix + 'help', { type: 'PLAYING' })
@@ -124,6 +165,6 @@ client.on('ready', () => {
 
 	}
 
-});
+}); */
 
 client.login(client.config.token);
