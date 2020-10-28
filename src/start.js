@@ -22,7 +22,7 @@ const Manager = new ShardingManager('./main.js', {
 	token: config.token,
 });
 Manager.spawn();
-Manager.on('launch', (shard) => {
+Manager.on('shardCreate', (shard) => {
 	console.log(`Launched shard ${shard.id}`);
 });
 */
