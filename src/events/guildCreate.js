@@ -31,11 +31,4 @@ module.exports.run = (newguild, client) => {
 		newguild.owner.user.send('Hey! I saw someone added me to ' + newguild.name + '. I am pretty excited to show how many members are on there. But to do so I need to have the permission to change my nickname. Please give that permission to me.')
 			.catch((err) => console.error('[ ERROR ] ', err));
 	}
-
-	// JOIN MESSAGE
-	const memb = client.users.cache.get('403269713368711190');
-	if (memb) {
-		memb.send(`I joined **${newguild.name}** with **${newguild.memberCount}** members. DB set: **${success}**`)
-			.catch((err) => console.error('[ ERROR ] ', err));
-	}
 };
