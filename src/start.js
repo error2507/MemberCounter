@@ -9,32 +9,14 @@ try {
 	if (debugMode) {
 		args = ['debug'];
 	}
-}
-catch (err) {
+} catch (err) {
 	logger.fatal('Bot', `Failed parsing config.json: ${err}`);
 	process.exit(1);
 }
-/*
-const Manager = new ShardingManager('./main.js', {
-	shardArgs: args,
-	shards: 'auto',
-	respawn: true,
-	token: config.token,
-});
-Manager.spawn();
-Manager.on('shardCreate', (shard) => {
-	console.log(`Launched shard ${shard.id}`);
-});
-*/
 
-/*
-Will switch to .env file
-process.env.NODE_ENV || (process.env.NODE_ENV = 'production');
-require('dotenv-flow').config();
-*/
 const manager = new ShardingManager('./main.js', {
   token: config.token,
-  totalShards: 40, // totalShards: 4,
+  totalShards: 40,
   shardList: 'auto',
   mode: 'process',
   respawn: 'true',
