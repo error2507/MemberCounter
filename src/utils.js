@@ -37,6 +37,7 @@ module.exports = {
 		});
 	},
 
+	/* DEACTIVATED FOR NOW
 	updateNicknameChanges(client) {
 		if (nicknameChanges > 0) {
 			const statsChannel = client.guilds.cache.get(client.config.supportGuild).channels.cache.find(c => c.name.startsWith('Nickname changes:'));
@@ -45,6 +46,7 @@ module.exports = {
 			nicknameChanges = 0;
 		}
 	},
+	*/
 
 	encapsuleString(data) {
 		if (typeof data == 'string') {return '"' + data + '"';}
