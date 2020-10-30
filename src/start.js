@@ -34,7 +34,7 @@ require('dotenv-flow').config();
 */
 const manager = new ShardingManager('./main.js', {
   token: config.token,
-  totalShards: 'auto', // totalShards: 4,
+  totalShards: 40, // totalShards: 4,
   shardList: 'auto',
   mode: 'process',
   respawn: 'true',
