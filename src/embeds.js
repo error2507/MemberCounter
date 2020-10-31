@@ -204,7 +204,7 @@ module.exports = {
 			// .setColor(0x4caf50)
 				.setColor('RED')
 				.setTitle('Missing Permissions')
-				.setDescription(':x: I can\'t add reactions to the messages, please make sure that I have this permission in order to change my configuration.')
+				.setDescription(':x: I can\'t add reactions to the messages or don\'t have the manage messages permission, please make sure that I have this permission in order to change my configuration.')
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
 		},

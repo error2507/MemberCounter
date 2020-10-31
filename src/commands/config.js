@@ -7,9 +7,8 @@ const stdConfig = {
 
 module.exports.run = async (msg, args, client) => {
 	if(msg.channel.type == 'dm') return msg.channel.send(client.embeds.update.dm());
-	// let guildMe = await msg.guild.users.fetch(client.user);
 
-	if(!msg.guild.me.hasPermission('ADD_REACTIONS')) return msg.channel.send(client.embeds.config.noAddReactionPerms());
+	if(!msg.guild.me.hasPermission('ADD_REACTIONS') || !msg.guild.me.hasPermission('MANAGE_MESSAGES')) return msg.channel.send(client.embeds.config.noAddReactionPerms());
 	let cMsg;
 	return msg.channel.send(client.embeds.config.chooseOption())
 		.then(msg => {
