@@ -5,7 +5,7 @@ module.exports = {
 		if (!guild) {return 0;}
 		return new Promise((resolve, reject) => {
 			client.db.getGuildConfig(guild).then((cfg) => {
-				guild.members.fetch()
+				guild.members.fetch({ force: true, cache: false })
 					.then(members => {
 						const membs = members.filter((m) => cfg.countBots || !m.user.bot);
 						const all = membs.size;
