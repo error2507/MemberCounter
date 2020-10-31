@@ -16,7 +16,7 @@ try {
 
 const manager = new ShardingManager('./main.js', {
   token: config.token,
-  totalShards: 40,
+  totalShards: 'auto',
   shardList: 'auto',
   mode: 'process',
   respawn: 'true',
