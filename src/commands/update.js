@@ -6,8 +6,6 @@ module.exports.run = (msg, args, client) => {
 			.then((err) => console.error('[ ERROR ] ', err));
 	}
 	else {
-
-		// msg.guild.users.cache.fetch(client.user.id).then((memb) => {
 		msg.guild.members.fetch(client.user.id).then(() => {
 
 			const timeout = client.timeout.check('cmdupdate');

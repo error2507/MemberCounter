@@ -54,12 +54,6 @@ catch (err) {
 	client.logger.fatal('', `Failed parsing config.json: ${err}`);
 	process.exit(1);
 }
-/*
-client.on('debug', (message) => {
-	// Save this message somewhere
-	console.log(message);
-});
-*/
 
 	client.setInterval(function() {
 		utils.updateNicknameChanges(client);

@@ -7,7 +7,7 @@
     "start": "node start.js",
     "test": "node start.js debug"
   },
-  "author": "error2507",
+  "author": "error2507 and ◢◤Myst◢◤#4217",
   "license": "GNU General Public License v3.0",
   "dependencies": {
     "chalk": "^4.1.0",
