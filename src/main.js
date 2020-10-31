@@ -6,7 +6,6 @@ const Timeout = require('./extensions/timeout');
 const utils = require('./utils');
 
 const client = new Discord.Client({
-	//fetchAllMembers: true,
 	disableMentions: 'everyone',
 	messageCacheMaxSize: 50,
 	messageCacheLifetime: 60,
