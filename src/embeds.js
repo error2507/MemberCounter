@@ -12,12 +12,12 @@ module.exports = {
 		return embed;
 	},
 
-	invite(tag) {
+	invite() {
 		const embed = new MessageEmbed()
 			.setColor(0x3f51b5)
 			.setTitle('Invite Links')
+			.setDescription(':robot: [Invite Bot](https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot)\n:question: [Support Server](https://discord.gg/nGu44pF)\n:chart_with_upwards_trend: [Vote](https://discordbots.org/bot/448845486515027970)')
 			.addField('Open Source', 'I am OSS at [https://github.com/error2507/MemberCounter](https://github.com/error2507/MemberCounter)')
-			.setDescription('[Invite Bot](https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot) - [Support Server](https://discord.gg/nGu44pF) - [Vote](https://discordbots.org/bot/448845486515027970)')
 			.setTimestamp()
 			.setFooter('MemberCounter#0402');
 		return embed;
