@@ -5,11 +5,17 @@ module.exports = {
 		if (!guild) {return 0;}
 		return new Promise((resolve, reject) => {
 			client.db.getGuildConfig(guild).then((cfg) => {
-				const membs = guild.members.cache.filter((m) => cfg.countBots || !m.user.bot);
-				const all = membs.size;
-				const online = membs.filter((m) => m.presence.status != 'offline').size;
-				const offline = all - online;
-				resolve({ all, online, offline });
+				guild.members.fetch()
+					.then(members => {
+						const membs = members.filter((m) => cfg.countBots || !m.user.bot);
+						const all = membs.size;
+						const online = membs.filter((m) => m.presence.status != 'offline').size;
+						const offline = all - online;
+						resolve({ all, online, offline });
+					}).catch(err => {
+						console.error(err);
+						reject;
+					})
 			}).catch(reject);
 		});
 	},
