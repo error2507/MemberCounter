@@ -1,15 +1,12 @@
 /* eslint-disable no-useless-escape */
 const { MessageEmbed } = require('discord.js');
 module.exports = {
-	help(tag, prefix) {
+	help(prefix, avatarUrl) {
 		const embed = new MessageEmbed()
-			.setColor(0x00bcd4)
-			.setTitle('Help')
-			.setDescription('On join I automatically set my nickname to the actual membercount (with all bots). When a member leaves or joins I also update my nickname. **Tip:** set my role as hoisted and place it at the top so it is easier to see. Therefore I don\'t need much commands. But if you think my nickname isn\'t showing the correct amount, you can use the following command to manually update my nickname.')
-			.addField(prefix + 'update', 'With this command I update my nickname.')
-			.addField(prefix + 'invite', 'Shows the link to invite me to your server and the invite link to my support server.')
-			.addField(prefix + 'stats', 'Shows my stats on discordbots.org.')
-			.addField(prefix + 'config', 'Guild specific configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md).')
+			.setAuthor('MemberCounter Help', avatarUrl)
+			.setDescription('MemberCounter is a discord utility bot that shows the current amount of members on a guild as its nickname.')
+			.addField('Commands:', `:white_small_square:\`${prefix}config\` - Display/Edit the current guild configuration. For more details, see [here](https://github.com/error2507/MemberCounter/blob/master/README.md)\n\n:white_small_square:\`${prefix}update\` - Update my nickname manually.\n\n:white_small_square:\`${prefix}invite\` - Displays the invite link for me and my support server.\n\n:white_small_square:\`${prefix}stats\` - Displays my top.gg stats.`)
+			.setColor('#2980B9')
 			.setTimestamp()
 			.setFooter('MemberCounter#0402');
 		return embed;
