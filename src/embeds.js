@@ -28,7 +28,6 @@ module.exports = {
 
 	partner() {
 		const embed = new MessageEmbed()
-		// .setColor(0x009FDF)
 			.setColor('#2980B9')
 			.setTitle('Partner')
 			.setImage('https://cdn.discordapp.com/attachments/468377584825139200/570312606640767016/Logo.png')
@@ -40,7 +39,6 @@ module.exports = {
 
 	stats(random) {
 		const embed = new MessageEmbed()
-		// .setColor(0x00bcd4)
 			.setTitle('Stats')
 			.setDescription('**Tip:** Support me by voting on [top.gg](https://top.gg/bot/448845486515027970).')
 			.setImage('https://discordbots.org/api/widget/448845486515027970.png?random=' + random)
@@ -52,7 +50,6 @@ module.exports = {
 
 	generalError(desc, err) {
 		return new MessageEmbed()
-		// .setColor(0x4caf50)
 			.setColor('RED')
 			.setTitle('Error ' + desc)
 			.setDescription('```' + err + '```')
@@ -65,7 +62,6 @@ module.exports = {
 		success(membercount) {
 			const embed = new MessageEmbed()
 				.setColor(0x4caf50)
-			// .setTitle('Success')
 				.setDescription(`✅ I successfully changed my nickname to \`${membercount}\`.`)
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
@@ -74,7 +70,6 @@ module.exports = {
 
 		missingPerms() {
 			const embed = new MessageEmbed()
-			// .setColor(0xf44336)
 				.setColor('RED')
 				.setTitle(':x: Missing permissions')
 				.setDescription('In order to work I need following permission: \`CHANGE_NICKNAME\` or \`ADMINISTRATOR\`')
@@ -85,7 +80,6 @@ module.exports = {
 
 		cooldown(time) {
 			const embed = new MessageEmbed()
-			// .setColor(0xf44336)
 				.setColor('RED')
 				.setTitle(':x: Cooldown')
 				.setDescription(`Please wait for \`${Math.floor(time / 1000)}\` more second(s) before reusing the command.`)
@@ -96,7 +90,6 @@ module.exports = {
 
 		dm() {
 			const embed = new MessageEmbed()
-			// .setColor(0xf44336)
 				.setColor('RED')
 				.setDescription(':x: This command is unavailable via private message. Please run this command within a server.')
 				.setTimestamp()
@@ -108,7 +101,6 @@ module.exports = {
 	config: {
 		list(configData) {
 			const embed = new MessageEmbed()
-			// .setColor(0x00bcd4)
 				.setColor('#2980B9')
 				.setTitle('Current guild configuration')
 				.setTimestamp()
@@ -122,7 +114,6 @@ module.exports = {
 					embed.addField(':white_small_square: Are bots counted?', `\`${(configData[k] == 0 ? 'No' : 'Yes')}\``);
 					break;
 				}
-
 			});
 			return embed;
 		},
@@ -138,7 +129,6 @@ module.exports = {
 
 		chooseOption() {
 			return new MessageEmbed()
-			// .setColor(0x00bcd4)
 				.setColor('#2980B9')
 				.setTitle('Guild Configuration')
 				.setDescription('What do you want to do? React below with the given emoji!')
@@ -151,7 +141,6 @@ module.exports = {
 
 		enterFormat(memberCount) {
 			return new MessageEmbed()
-			// .setColor(0x00bcd4)
 				.setColor('#2980B9')
 				.setTitle('Modify Configuration')
 				.setDescription(`Enter your desired format. Avaible placeholders : \`%all%\`, \`%online%\`, \`%offline%\` (For all/online/offline members)\n\n**Note:** You can _not_ use \" in your format! In addition you have to use at least one placeholder.\n\n**Example:** %all% Members -> __${memberCount} Members__ as my nickname`)
@@ -161,7 +150,6 @@ module.exports = {
 
 		incorrectFormat() {
 			return new MessageEmbed()
-			// .setColor(0xf44336)
 				.setColor('RED')
 				.setTitle(':x: Your format is incorrect')
 				.addField('First option:', 'You forgot to add a placeholder. (Placeholders: `%all%`)')
@@ -172,7 +160,6 @@ module.exports = {
 
 		botCount() {
 			return new MessageEmbed()
-			// .setColor(0x00bcd4)
 				.setColor('#2980B9')
 				.setTitle('Should bots be counted?')
 				.setDescription('Should bots (including this one) be counted in %all%?\n✅ **-** Yes, they should be counted.\n❎ **-**No, they shouldn\'t be counted.')
@@ -183,7 +170,6 @@ module.exports = {
 		botCountSet(value) {
 			return new MessageEmbed()
 				.setColor(0x4caf50)
-			// .setTitle('Format set')
 				.setDescription(`✅ Botcount set to \`${value}\`.`)
 				.setTimestamp()
 				.setFooter('MemberCounter#0402');
@@ -191,7 +177,6 @@ module.exports = {
 
 		noAdmin() {
 			return new MessageEmbed()
-			// .setColor(0xf44336)
 				.setColor('RED')
 				.setTitle('Missing Permissions')
 				.setDescription(':x: You need admin permissions to use this command.')
@@ -201,7 +186,6 @@ module.exports = {
 
 		noAddReactionPerms() {
 			return new MessageEmbed()
-			// .setColor(0x4caf50)
 				.setColor('RED')
 				.setTitle('Missing Permissions')
 				.setDescription(':x: I can\'t add reactions to the messages or don\'t have the manage messages permission, please make sure that I have this permission in order to change my configuration.')
