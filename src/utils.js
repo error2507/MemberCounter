@@ -1,4 +1,5 @@
 let nicknameChanges = 0;
+const config = require('./config.json');
 module.exports = {
 
 	getMemberCount(guild, client) {
@@ -36,23 +37,12 @@ module.exports = {
 
 				guild.members.fetch(client.user.id).then(guildMe => {
 					guildMe.setNickname(formated)
-						.then(() => nicknameChanges++);
+						.then(() => client.nicknameChanges++);
 				});
 				if (cb) cb(formated);
 			});
 		});
 	},
-
-	/* DEACTIVATED FOR NOW
-	updateNicknameChanges(client) {
-		if (nicknameChanges > 0) {
-			const statsChannel = client.guilds.cache.get(client.config.supportGuild).channels.cache.find(c => c.name.startsWith('Nickname changes:'));
-			const changedBefore = parseInt(statsChannel.name.split(': ').slice(1), 10);
-			statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
-			nicknameChanges = 0;
-		}
-	},
-	*/
 
 	encapsuleString(data) {
 		if (typeof data == 'string') {return '"' + data + '"';}
