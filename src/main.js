@@ -69,12 +69,6 @@ catch (err) {
 	process.exit(1);
 }
 
-// Update the nickname changes channel
-client.setInterval(function() {
-	utils.updateNicknameChanges(client);
-}, /*30 * 60000*/10000);
-
-
 client.timeout = new Timeout()
 	.register('cmdupdate', 30 * 1000, 1);
 
