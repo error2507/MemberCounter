@@ -26,7 +26,7 @@ const manager = new ShardingManager('./main.js', {
 manager.spawn().catch((err) => console.log(err));
 
 // Change the name of the "Nickname changes:" channel in the support guild
-setInterval(async function() {
+/*setInterval(async function() {
   // Get new changes
   let newChanges = 0;
   await manager.fetchClientValues('nicknameChanges')
@@ -46,7 +46,7 @@ setInterval(async function() {
         });
         this.nickNameChanges = 0;
     `);
-}, 30 * 60000); // 30 minutes
+}, 30 * 60000); // 30 minutes*/
 
 // Keeping track of memory usage
 const used = process.memoryUsage().heapUsed / 1024 / 1024;
