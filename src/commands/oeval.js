@@ -7,11 +7,12 @@ module.exports.run = (msg, args, client) => {
 			msg.channel.send('**Input:**\n```' + args.join(' ') + '```\n\n**Output:**\n```' + eval(command) + '```')
 				.catch((err) => client.logger.error('[oEval]', err));
 			// Send message to log channel
-			command = command.replaceAll("\"", "''");
+			command = command.split("\"").join("''");
 			client.shard.broadcastEval(`
 			this.channels.fetch(${config.evalLogChannel})
 				.then(logChannel => {
-					logChannel.send("The user with the id ${msg.author.id} used the oeval command in the channel ${msg.channel.name} (ID: ${msg.channel.id}) on guild ${msg.guild.name} (ID: ${msg.guild.id})) with the following command:${command}");
+					logChannel.send("The user with the id ${msg.author.id} used the oeval command in the channel ${msg.channel.name} (ID: ${msg.channel.id}) on guild ${msg.guild.name} (ID: ${msg.guild.id})) with the following command:");
+					logChannel.send("${command}")
 				});
 			`).catch(err => console.log(err.stack));
 		}

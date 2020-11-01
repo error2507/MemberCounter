@@ -5,11 +5,12 @@ module.exports.run = (msg, args, client) => {
 			let command = args.join(" ");
 			eval(command);
 			// Send message to eval log
-			command = command.replaceAll("\"", "''");
+			command = command.split("\"").join("''");
 			client.shard.broadcastEval(`
 			this.channels.fetch(${config.evalLogChannel})
 				.then(logChannel => {
-					logChannel.send("The user with the id ${msg.author.id} used the eval command in the channel ${msg.channel.name} (ID: ${msg.channel.id}) on guild ${msg.guild.name} (ID: ${msg.guild.id})) with the following command:${command}");
+					logChannel.send("The user with the id ${msg.author.id} used the eval command in the channel ${msg.channel.name} (ID: ${msg.channel.id}) on guild ${msg.guild.name} (ID: ${msg.guild.id})) with the following command:");
+					logChannel.send("${command}")
 				});
 			`).catch(err => console.log(err.stack));
 		} catch(err) {
