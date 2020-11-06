@@ -1,3 +1,3 @@
 module.exports.run = (id, replayedEvents) => {
-	console.log(`[Shard ${id}] resumed. Replay events: ${replayedEvents}`);
+	console.log(`[Shard ${id}] resumed. Replayed events: ${replayedEvents}`);
 };

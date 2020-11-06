@@ -34,11 +34,13 @@ module.exports = {
 		return embed;
 	},
 
-	stats() {
+	stats(random) {
 		const embed = new MessageEmbed()
 			.setTitle('Stats')
 			.setDescription('**Tip:** Support me by voting on [top.gg](https://top.gg/bot/448845486515027970).')
+			// .setImage('https://top.gg/api/widget/448845486515027970.png?random=' + random)
 			.setImage('https://discordbots.org/api/widget/448845486515027970.png')
+			// .setImage('https://top.gg/api/widget/448845486515027970.png?usernamecolor=FFFFFF&topcolor=2980B9')
 			.setColor('#2980B9')
 			.setTimestamp()
 			.setFooter('MemberCounter#0402');
