@@ -10,8 +10,9 @@
   "author": "error2507",
   "license": "GNU General Public License v3.0",
   "dependencies": {
-    "dblapi.js": "^2.3.0",
+    "@mapbox/node-pre-gyp": "^1.0.10",
+    "dblapi.js": "^2.4.1",
     "discord.js": "^14.7.1",
-    "sqlite3": "^4.0.6"
+    "sqlite3": "^5.1.4"
   }
 }
