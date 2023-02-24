@@ -12,6 +12,5 @@ module.exports.run = (client) => {
                 })
         }, 300000);
     }
-    client.user.setActivity(client.config.prefix + 'help', { type: 'PLAYING' })
-        .catch((err) => console.error("[ ERROR ] ", err));
+    client.user.setActivity('MemberCount', { type: 3 });
 };
