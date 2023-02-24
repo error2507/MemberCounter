@@ -15,20 +15,27 @@ const client = new Discord.Client({
     fetchAllMembers: true
 });
 
-const debugMode = process.argv.includes('debug');
-
-try {
+let args = [];
+// read arguments
+// only existing argument: --config=path/to/file.json
+if (process.argv.length > 2) {
+    args = process.argv.slice(2);
+    try {
+        if (args[0].startsWith("--config=")) {
+            client.config = require(args[0].split('=')[1]);
+        } else {
+            throw new Error("No valid config argument found");
+        }
+    } catch (err) {
+        console.log(err)
+    }
+} else {
     client.config = require('./config.json');
-    if (debugMode)
-        client.config = client.config.debug;
-} catch (err) {
-    console.error('[ FATAL ] Failed parsing config.json: ', err);
-    process.exit(1);
 }
 
-client.setInterval(function() {
+/*client.setInterval(function() {
     utils.updateNicknameChanges(client);
-}, 30 * 60000);
+}, 30 * 60000);*/
 
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
