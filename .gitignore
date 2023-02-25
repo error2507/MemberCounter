@@ -132,3 +132,4 @@ dist
 
 # other
 secret/
+*.sqlite3.db
