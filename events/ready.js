@@ -12,5 +12,5 @@ module.exports.run = (client) => {
                 })
         }, 300000);
     }
-    client.user.setActivity('MemberCount', { type: 3 });
+    client.user.setActivity('MemberCounter', { type: 3 });
 };
