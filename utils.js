@@ -21,15 +21,15 @@ module.exports = {
     formatCount(countObj, format) {
         if (!format)
             format = "%all%";
-    	Object.keys(countObj)
-    		.forEach((k) => {
-    			format = format.replace(`%${k}%`, countObj[k]);
-    		});
-    	return format;
+        Object.keys(countObj)
+            .forEach((k) => {
+                format = format.replace(`%${k}%`, countObj[k]);
+            });
+        return format;
     },
 
     setNickname(guild, client, cb) {
-    	this.getMemberCount(guild, client).then((count) => {
+        this.getMemberCount(guild, client).then((count) => {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
                 guild.members.fetchMe().then(guildMe => {
