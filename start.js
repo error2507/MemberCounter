@@ -1,37 +1,44 @@
 const process = require('process');
-
-let config;
-let args = [];
-// read arguments
-// only existing argument: --config=path/to/file.json
-if (process.argv.length > 2) {
-    args = process.argv.slice(2);
-    try {
-        if (args[0].startsWith("--config=")) {
-            config = require(args[0].split('=')[1]);
-        } else {
-            throw new Error("No valid config argument found");
-        }
-    } catch (err) {
-        console.log(err)
-    }
-} else {
-    config = require('./config.json');
-}
-
+const commandLineArgs = require('command-line-args');
 const { ShardingManager } = require('discord.js');
 
+// look out for the user specifying a custom config or if new commands should be registered
+const optionDefinitions = [
+    {
+        name: 'setup-commands',
+        alias: 's',
+        type: Boolean,
+        defaultValue: false
+    },
+    {
+        name: 'config',
+        alias: 'c',
+        type: String,
+        defaultValue: __dirname + '/config.json'
+    }
+]
+const args = commandLineArgs(optionDefinitions);
+// try to get the specified config
+let config;
+try {
+    config = require(args.config);
+} catch (err) {
+    console.error("FATAL ERROR Could not load " + args.config + " as config");
+    process.exit(5);
+}
+
+// spawning all shards
 const Manager = new ShardingManager('./main.js', {
-    shardArgs: args,
+    // ignore first to indicies because they are from the initial command
+    shardArgs: process.argv.slice(2),
     totalShards: 'auto',
     respawn: true,
     token: config.token,
 });
 Manager.spawn();
 Manager.on('shardCreate', shard => {
-    console.log(shard);
-})
+    console.log(`Created shard ${shard.id}`);
+});
 Manager.on('launch', (shard) => {
     console.log(`Launched shard ${shard.id}`);
 });
-
