@@ -27,6 +27,9 @@ try {
     process.exit(5);
 }
 
+// if requested by the user, register commands here (async not needed because it does not matter if commands are registered a few seconds after shards are ready)
+if (args['setup-commands']) require(__dirname + '/registerCommands').run();
+
 // spawning all shards
 const Manager = new ShardingManager('./main.js', {
     // ignore first to indicies because they are from the initial command

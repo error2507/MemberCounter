@@ -1,5 +1,6 @@
 {
     "token":    "TOKEN_HERE",
+    "clientId":  "CLIENT ID HERE",
     "dblToken": "DBLTOKEN",
     "prefix":   "%",
     "dbFile":   "membercounter.sqlite3.db",
