@@ -40,8 +40,8 @@ const Manager = new ShardingManager('./main.js', {
 });
 Manager.spawn();
 Manager.on('shardCreate', shard => {
-    console.log(`Created shard ${shard.id}`);
+    console.log(`[ SHARDS ] Created shard ${shard.id}`);
 });
 Manager.on('launch', (shard) => {
-    console.log(`Launched shard ${shard.id}`);
+    console.log(`[ SHARDS ] Launched shard ${shard.id}`);
 });
