@@ -1,7 +1,7 @@
-let discord = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 module.exports = {
     help(tag, prefix) {
-        let embed = new discord.RichEmbed()
+        let embed = new EmbedBuilder()
             .setColor(0x00bcd4)
             .setTitle('Help')
             .setDescription('On join I automatically set my nickname to the actual membercount (with all bots). When a member leaves or joins I also update my nickname. **Tip:** set my role as hoisted and place it at the top so it is easier to see. Therefore I don\'t need much commands. But if you think my nickname isn\'t showing the correct amount, you can use the following command to manually update my nickname.')
@@ -14,7 +14,7 @@ module.exports = {
     },
 
     invite(tag) {
-        let embed = new discord.RichEmbed()
+        let embed = new EmbedBuilder()
             .setColor(0x3f51b5)
             .setTitle('Invite Links')
             .addField('Invite me to your server (Please make sure I get all the permissions I need)', 'https://discordapp.com/api/oauth2/authorize?client_id=448845486515027970&permissions=67110912&scope=bot')
@@ -26,7 +26,7 @@ module.exports = {
     },
 
     partner() {
-        let embed = new discord.RichEmbed()
+        let embed = new EmbedBuilder()
             .setColor(0x009FDF)
             .setTitle('Partner')
             .setImage('https://cdn.discordapp.com/attachments/468377584825139200/570312606640767016/Logo.png')
@@ -35,16 +35,16 @@ module.exports = {
     },
 
     stats(random) {
-        let embed = new discord.RichEmbed()
+        let embed = new EmbedBuilder()
             .setColor(0x00bcd4)
             .setTitle('Stats')
             .setImage('https://discordbots.org/api/widget/448845486515027970.png?random=' + random)
-            .setFooter('If you believe the stats aren\'t correct, just reuse this command.')
+            .setFooter({ text: 'If you believe the stats aren\'t correct, just reuse this command.' })
         return embed;
     },
 
     generalError(desc, err) {
-        return new discord.RichEmbed()
+        return new EmbedBuilder()
             .setColor(0x4caf50)
             .setTitle('Error ' + desc)
             .setDescription('```' + err + '```')
@@ -53,7 +53,7 @@ module.exports = {
 
     update: {
         success(membercount) {
-            let embed = new discord.RichEmbed()
+            let embed = new EmbedBuilder()
                 .setColor(0x4caf50)
                 .setTitle('Success')
                 .setDescription(`I successfully changed my nickname to \`${membercount}\``);
@@ -61,7 +61,7 @@ module.exports = {
         },
 
         missingPerms() {
-            let embed = new discord.RichEmbed()
+            let embed = new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle('Missing permissions')
                 .setDescription('In order to work I need following permission: `CHANGE_NICKNAME` or `ADMINISTRATOR`');
@@ -69,7 +69,7 @@ module.exports = {
         },
 
         cooldown(time) {
-            let embed = new discord.RichEmbed()
+            let embed = new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle('Cooldown')
                 .setDescription(`Please don\'t spam this command. You can use it again in ${Math.floor(time / 1000)} seconds.`);
@@ -77,7 +77,7 @@ module.exports = {
         },
 
         dm() {
-            let embed = new discord.RichEmbed()
+            let embed = new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle('This command is not working in DMs')
                 .setDescription('You can only use this command on server I am on but not via direct messages.');
@@ -87,7 +87,7 @@ module.exports = {
 
     config: {
         list(configData) {
-            let embed =  new discord.RichEmbed()
+            let embed =  new EmbedBuilder()
                 .setColor(0x00bcd4)
                 .setTitle('Current guilds config');
             Object.keys(configData).forEach(k => {
@@ -105,14 +105,14 @@ module.exports = {
         },
 
         formatSet(value) {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x4caf50)
                 .setTitle('Format set')
                 .setDescription(`Format set to \`${value}\`.`);
         },
 
         chooseOption() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x00bcd4)
                 .setTitle("Config Menu")
                 .setDescription("What do you want to do? React below!")
@@ -122,14 +122,14 @@ module.exports = {
         },
 
         enterFormat() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x00bcd4)
                 .setTitle("Enter your desired format")
                 .setDescription("Enter you desrired format. Use `%all%` as a placeholder for all (online and offline) members.\n**Note:** You can _not_ use `\"` in your format! Also you _have to_ use at least one placeholder.");
         },
 
         incorrectFormat() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle("Your format is incorrect")
                 .addField("First option:", "You forgot to add a placeholder. (Placeholders: `%all%`)")
@@ -137,28 +137,28 @@ module.exports = {
         },
 
         botCount() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x00bcd4)
                 .setTitle("Should bots be counted?")
                 .setDescription("Should bots (including this one) be counted in %all%?\n✅: Yes, they should be counted.\n❎:No, they shouldn't be counted.");
         },
 
         botCountSet(value) {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x4caf50)
                 .setTitle('Format set')
                 .setDescription(`Botcount set to \`${value}\`.`);
         },
 
         noAdmin() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle("Admin needed!")
                 .setDescription("You need admin permissions to use this command.")
         },
 
         noAddReactionPerms() {
-            return new discord.RichEmbed()
+            return new EmbedBuilder()
                 .setColor(0x4caf50)
                 .setTitle("I don't have the permission to add reactions to messages!")
                 .setDescription("I can't add reactions to messages, please make sure that I have this permission in order to change my config.");
