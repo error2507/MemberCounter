@@ -1,26 +1,30 @@
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 const utils = require('../utils');
 
-module.exports.run = (msg, args, client) => {
-    if (msg.channel.type == "dm") {
-        msg.channel.send(client.embeds.update.dm())
-            .then((err) => console.error("[ ERROR ] ", err));
-    } else {
-        msg.guild.fetchMember(client.user).then((memb) => {
-            let timeout = client.timeout.check('cmdupdate');
-            if (timeout > 0) {
-                msg.channel.send(client.embeds.update.cooldown(timeout))
-                    .catch((err) => console.error("[ ERROR ] ", err));
-            } else {
-                if ((msg.guild.me.hasPermission("CHANGE_NICKNAME") || msg.guild.me.hasPermission("ADMINISTRATOR")) && msg.guild.id != 403269713368711190) {
-                    utils.setNickname(msg.guild, client, (nick) => {
-                        msg.channel.send(client.embeds.update.success(nick))
-                            .catch((err) => console.error("[ ERROR ] ", err));
-                    });
-                } else {
-                    msg.channel.send(client.embeds.update.missingPerms())
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('update')
+        .setDMPermission(false)
+        .setDescription("Updates MemberCounter's nickname to the current membercount"),
+
+    run(interaction, client) {
+        interaction.guild.members.fetchMe()
+            .then(clientMember => {
+                const timeout = client.timeout.check('cmdupdate');
+                if (timeout > 0) {
+                    interaction.reply({ embeds: [client.embeds.update.cooldown(timeout)] })
                         .catch((err) => console.error("[ ERROR ] ", err));
+                } else {
+                    if ((clientMember.permissions.has(PermissionFlagsBits.ChangeNickname) || clientMember.permissions.has(PermissionFlagsBits.Administrator))/* && msg.guild.id != 403269713368711190*/) {
+                        utils.setNickname(interaction.guild, client, (nick) => {
+                            interaction.reply({ embeds: [client.embeds.update.success(nick)] })
+                                .catch((err) => console.error("[ ERROR ] ", err));
+                        });
+                    } else {
+                        interaction.reply({ embeds: [client.embeds.update.missingPerms()] })
+                            .catch((err) => console.error("[ ERROR ] ", err));
+                    }
                 }
-            }
-        });
+            });
     }
-};
+}

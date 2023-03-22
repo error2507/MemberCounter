@@ -64,7 +64,7 @@ module.exports = {
             let embed = new EmbedBuilder()
                 .setColor(0xf44336)
                 .setTitle('Missing permissions')
-                .setDescription('In order to work I need following permission: `CHANGE_NICKNAME` or `ADMINISTRATOR`');
+                .setDescription('In order to work I need the permission to change my nickname.');
             return embed;
         },
 
