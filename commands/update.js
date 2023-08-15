@@ -15,7 +15,7 @@ module.exports = {
                     interaction.reply({ embeds: [client.embeds.update.cooldown(timeout)] })
                         .catch((err) => console.error("[ ERROR ] ", err));
                 } else {
-                    if ((clientMember.permissions.has(PermissionFlagsBits.ChangeNickname) || clientMember.permissions.has(PermissionFlagsBits.Administrator))/* && msg.guild.id != 403269713368711190*/) {
+                    if (clientMember.permissions.has(PermissionFlagsBits.ChangeNickname)) {
                         utils.setNickname(interaction.guild, client, (nick) => {
                             interaction.reply({ embeds: [client.embeds.update.success(nick)] })
                                 .catch((err) => console.error("[ ERROR ] ", err));

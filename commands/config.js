@@ -1,130 +1,67 @@
-const utils = require("../utils");
-const stdConfig = {
-    "format": "%all%",
-    "countBots": 1,
-};
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
+const utils = require('../utils.js');
 
-module.exports.run = async (msg, args, client) => {
-    if(msg.channel.type == "dm") return msg.channel.send(client.embeds.update.dm());
-    let guildMe = await msg.guild.fetchMember(client.user);
-    if(!guildMe.hasPermission("ADD_REACTIONS")) return msg.channel.send(client.embeds.config.noAddReactionPerms());
-    let cMsg;
-    return msg.channel.send(client.embeds.config.chooseOption())
-    .then(msg => {
-        cMsg = msg;
-        return cMsg.react("👁");
-    })
-    .then(() => cMsg.react("✏"))
-    .then(() => cMsg.react("🤖"))
-    .then(() => cMsg.awaitReactions((reaction, user) => (reaction.emoji.name === "👁" || reaction.emoji.name === "✏" || reaction.emoji.name === "🤖") && user.id === msg.author.id, {
-        time: 60000,
-        max: 1
-    }))
-    .then(reactions => {
-        if(reactions.size !== 1) return undefined;
-        switch (reactions.first().emoji.name) {
-            case "👁":
-                // Removing all reactions
-                return cMsg.clearReactions()
-                // Getting current guilds config from database.
-                .then(() => client.db.getGuildConfig(msg.guild))
-                .then(_guildConfig => {
-                    let guildConfig = _guildConfig;
+module.exports = {
+    data: new SlashCommandBuilder()
+        .setName('config')
+        .setDMPermission(false)
+        .setDefaultMemberPermissions(PermissionFlagsBits.ManageGuild)
+        .setDescription("Configure MemberCounter's displaying options")
+        .addBooleanOption(option => 
+            option
+                .setName('count_bots')
+                .setDescription("Define wheter bots should be included while counting")
+        )
+        .addStringOption(option => 
+            option
+                .setName('nickname_format')
+                .setDescription("The format that the bot uses in its nickname. The keyword %all% will be replaced by the membercount.")
+        ),
+    
+    async run(interaction, client) {
+        const newNicknameFormat = interaction.options.getString('nickname_format');
+        const newCountBots = interaction.options.getBoolean('count_bots');
 
-                    if (Object.keys(guildConfig).length == 0) {
-                        guildConfig = stdConfig;
-                        client.db.setGuildConfig(msg.guild, stdConfig);
-                    }
-                    // Edit cMsg (which was the menu before) to display current guild config
-                    return cMsg.edit(client.embeds.config.list(guildConfig))
-                    .then(() => {
-                        cMsg.delete(30000);
-                        return msg.delete(30000);
-                    });
-                });
-
-            case "✏":
-                if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.channel.send(client.embeds.config.noAdmin());
-                cMsg.clearReactions();
-                cMsg.edit(client.embeds.config.enterFormat());
-                return msg.channel.awaitMessages(m => m.author.id == msg.author.id, {
-                    max: 1,
-                    time: 60000
-                })
-                .then(msgs => {
-                    if(msgs.size !== 1) return undefined;
-                    const fMsg = msgs.first();
-                    if((fMsg.content.includes("%all%") || fMsg.content.includes("%online%")) && !fMsg.content.includes("\"")) {
-                        const cfgValue = fMsg.content;
-                        // Update guild config in database.
-                        return client.db.setGuildConfig(msg.guild, { format: cfgValue })
-                        .then(() => {
-                            msg.channel.send(client.embeds.config.formatSet(cfgValue))
-                            .then(success => {
-                                msg.delete(30000);
-                                fMsg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
-                            })
-                            utils.setNickname(msg.guild, client);
-                        })
-                        .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
-                    }
-                    return msg.channel.send(client.embeds.config.incorrectFormat());
-                });
-
-            case "🤖":
-                if(!msg.member.hasPermission("ADMINISTRATOR")) return msg.channel.send(client.embeds.config.noAdmin());
-                return cMsg.edit(client.embeds.config.botCount())
-                .then(() => {
-                    if(msg.guild.me.hasPermission("MANAGE_MESSAGES")) return cMsg.clearReactions();
-                    return undefined;
-                })
-                .then(() => cMsg.react("✅"))
-                .then(() => cMsg.react("❎"))
-                .then(() => cMsg.awaitReactions((reaction, user) => (reaction.emoji.name === "✅" || reaction.emoji.name === "❎") && user.id === msg.author.id, {
-                    time: 60000,
-                    max: 1
-                }))
-                .then(r => {
-                    if(r.size !== 1) return undefined;
-                    if(r.first().emoji.name == "✅") {
-                        cfgValue = 1;
-                        // Update guild config in database.
-                        return client.db.setGuildConfig(msg.guild, { countBots: cfgValue })
-                        .then(() => {
-                            msg.channel.send(client.embeds.config.botCountSet("yes"))
-                            .then((success) => {
-                                utils.setNickname(msg.guild, client);
-                                msg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
-                            });
-                        })
-                        .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
-                    } else {
-                        cfgValue = 0;
-                        // Update guild config in database.
-                        return client.db.setGuildConfig(msg.guild, { countBots: cfgValue })
-                        .then(() => {
-                            msg.channel.send(client.embeds.config.botCountSet("no"))
-                            .then((success) => {
-                                utils.setNickname(msg.guild, client);
-                                msg.delete(30000);
-                                cMsg.delete(30000);
-                                return success.delete(30000);
-                            });
-                        })
-                        .catch((err) => msg.channel.send(client.embeds.generalError("Error writing config data to database:", err)));
-                    }
-                });
-
-            default:
-                return undefined;
+        // check if format (if it is provided) is in the correct format
+        if (newNicknameFormat !== null && (!newNicknameFormat.includes("%all%") || newNicknameFormat.includes('"'))) {
+            return interaction.reply({ embeds: [client.embeds.config.incorrectFormat()] })
+                .catch((err) => console.error("[ ERROR ] ", err));
         }
-    })
-    .then(() => {
-        // FINISHED
-    })
-    .catch(console.error);
-};
+
+        // check if nickname is not too long
+        if (newNicknameFormat !== null && newNicknameFormat.replace("%all%", "").length > 23) {
+            return interaction.reply({ embeds: [client.embeds.config.formatTooLong()] })
+                .catch((err) => console.error("[ ERROR ] ", err));
+        }
+
+        const interactionGuild = interaction.member.guild;
+        let currentGuildConfig = await client.db.getGuildConfig(interactionGuild);
+
+        // show current config if no options are defined by the command issuer
+        if (newNicknameFormat === null && newCountBots === null) {
+            return interaction.reply({ embeds: [client.embeds.config.list(currentGuildConfig)] })
+                .catch((err) => console.error("[ ERROR ] ", err))
+        }
+
+        // continue to editing if everything seems alright
+        // set standard config if config is not set yet
+        if (Object.keys(currentGuildConfig).length === 0) {
+            const standardConfig = {
+                "format": "%all%",
+                "countBots": 1
+            };
+            client.db.setGuildConfig(interactionGuild, standardConfig);
+            currentGuildConfig = standardConfig;
+        }
+
+        const newGuildConfig = {};
+        newGuildConfig.format = (newNicknameFormat !== null ? newNicknameFormat : currentGuildConfig.format);
+        newGuildConfig.countBots = (newCountBots !== null ? (newCountBots ? 1 : 0) : currentGuildConfig.countBots);
+
+        client.db.setGuildConfig(interactionGuild, newGuildConfig);
+        utils.setNickname(interactionGuild, client);
+
+        interaction.reply({ embeds: [client.embeds.config.list(newGuildConfig)] })
+            .catch((err) => console.error("[ ERROR ] ", err));
+    }
+}
