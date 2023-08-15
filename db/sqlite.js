@@ -34,7 +34,7 @@ module.exports = class Sqlite extends DBDriver {
             .forEach((c) => {
                 this.db.run(c, (err, _) => {
                     if (err)
-                        console.log('[ ERROR ] [ DB ] failed executing setup query: ', c);
+                        console.error('[ ERROR ] [ DB ] failed executing setup query: ', c);
                 });
             });
     }
