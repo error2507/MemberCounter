@@ -1,7 +1,7 @@
 {
     "token":    "TOKEN_HERE",
     "clientId":  "CLIENT ID HERE",
-    "dblToken": "DBLTOKEN",
+    "topToken": "DBLTOKEN",
     "prefix":   "%",
     "dbFile":   "membercounter.sqlite3.db",
     "supportGuild":""
