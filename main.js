@@ -43,7 +43,6 @@ try {
 
 
 client.embeds = require('./embeds.js');
-client.dbl = new DBL(client.config.dblToken);
 client.db = new Sqlite(client.config.dbFile);
 client.timeout = new Timeout()
     .register('cmdupdate', 30 * 1000, 1);
