@@ -1,11 +1,11 @@
 const utils = require('../utils');
+const embeds = require('../embeds');
+const { PermissionFlagsBits } = require('discord.js');
 
 const stdConfig = {
     "format": "%all%",
     "countBots": 1,
 };
-
-let success = false;
 
 module.exports.run = (newguild, client) => {
     client.db.getGuildConfig(newguild)
@@ -15,25 +15,24 @@ module.exports.run = (newguild, client) => {
         if (Object.keys(guildConfig).length == 0) {
             guildConfig = stdConfig;
             client.db.setGuildConfig(newguild, stdConfig)
-            .then(() => {
-                success = true;
-            })
-            .catch(() => {
-                success = false;
-            });
+                .catch((err) => {
+                    console.error("[ ERROR ] While creating config after joining " + newguild.id + "\n", err)
+                });
         }
     });
     
-    if (newguild.me.hasPermission("CHANGE_NICKNAME") || newguild.me.hasPermission("ADMINISTRATOR")) {
-        utils.setNickname(newguild, client);
-    } else {
-        newguild.owner.user.send("Hey! I saw someone added me to " + newguild.name + ". I am pretty excited to show how many members are on there. But to do so I need to have the permission to change my nickname. Please give that permission to me.")
-            .catch((err) => console.error("[ ERROR ] ", err));
-    }
-
-    // JOIN MESSAGE
-    let memb = client.users.get("403269713368711190");
-    if (memb)
-        memb.send(`I joined **${newguild.name}** with **${newguild.memberCount}** members. DB set: **${success}**`)
-            .catch((err) => console.error("[ ERROR ] ", err));
+    newguild.members.fetchMe()
+        .then(guildMe => {
+            // initial check if bot has permission to set nickname, if not try to send message to owner
+            if (guildMe.permissions.has(PermissionFlagsBits.ChangeNickname)) {
+                utils.setNickname(newguild, client);
+            } else {
+                client.users.fetch(newguild.ownerId)
+                    .then(ownerUser => {
+                        ownerUser.send({ embeds: [embeds.update.messageToOwner(newguild.name)] })
+                            .catch((err) => console.error("[ ERROR ] ", err))
+                    })
+                    .catch((err) => console.error("[ ERROR ] ", err));
+            }
+        });
 }
