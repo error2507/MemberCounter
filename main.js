@@ -41,9 +41,6 @@ try {
     process.exit(5);
 }
 
-/*client.setInterval(function() {
-    utils.updateNicknameChanges(client);
-}, 30 * 60000);*/
 
 client.embeds = require('./embeds.js');
 client.dbl = new DBL(client.config.dblToken);
