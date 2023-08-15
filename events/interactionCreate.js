@@ -4,5 +4,4 @@ module.exports.run = (interaction, client) => {
         case 2:
             client.commands.get(interaction.commandName).run(interaction, client);
     }
-    console.log(interaction)
 };
