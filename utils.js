@@ -35,7 +35,7 @@ module.exports = {
             client.db.getGuildConfig(guild).then((cfg) => {
                 let formated = this.formatCount(count, cfg.format);
                 guild.members.fetchMe().then(guildMe => {
-                    guildMe.setNickname(formated)
+                    guildMe.setNickname(formated, "Updated membercount | https://top.gg/bot/448845486515027970")
                     .then(() => nicknameChanges++);
                 });
                 if (cb) cb(formated);
