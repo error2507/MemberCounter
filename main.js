@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const fs = require('fs');
-const DBL = require("dblapi.js");
 const process = require("process");
 const commandLineArgs = require('command-line-args');
 

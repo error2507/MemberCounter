@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 let nicknameChanges = 0;
 module.exports = {
 
@@ -41,13 +43,21 @@ module.exports = {
         });
     },
 
-    updateNicknameChanges(client) {
-        if (nicknameChanges > 0) {
-            let statsChannel = client.guilds.get(client.config.supportGuild).channels.find(c => c.name.startsWith("Nickname changes:"));
-            let changedBefore = parseInt(statsChannel.name.split(": ").slice(1), 10);
-            statsChannel.setName(`Nickname changes: ${changedBefore + nicknameChanges}`);
-            nicknameChanges = 0;
-        }
+    async updateTopGGStats(ShardingManager, topToken) {
+        const guildCounts = await ShardingManager.fetchClientValues('guilds.cache.size')
+        const addedUpGuildCount = guildCounts.reduce((prev, memberCount) => prev + memberCount, 0);
+        const shardCount = ShardingManager.totalShards;
+        const clientId = await ShardingManager.shards.first().fetchClientValue('user.id');
+
+        axios.post(`https://top.gg/api/bots/${clientId}/stats`, {
+            server_count: addedUpGuildCount,
+            shard_count: shardCount
+        }, {
+            headers: {
+                'Authorization': topToken
+            }
+        })
+        .catch((err) => console.error("[ ERROR ] While posting stats to top.gg", err));
     },
 
     encapsuleString(data) {

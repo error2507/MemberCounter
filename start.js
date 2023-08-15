@@ -1,6 +1,7 @@
 const process = require('process');
 const commandLineArgs = require('command-line-args');
 const { ShardingManager } = require('discord.js');
+const utils = require('./utils');
 
 // look out for the user specifying a custom config or if new commands should be registered
 const optionDefinitions = [
@@ -42,6 +43,7 @@ Manager.spawn();
 Manager.on('shardCreate', shard => {
     console.log(`[ SHARDS ] Created shard ${shard.id}`);
 });
-Manager.on('launch', (shard) => {
-    console.log(`[ SHARDS ] Launched shard ${shard.id}`);
-});
+
+setInterval(() => {
+    utils.updateTopGGStats(Manager, config.topToken);
+}, 30000)
